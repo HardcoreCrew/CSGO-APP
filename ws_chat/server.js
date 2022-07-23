@@ -14,13 +14,10 @@ const io = socketio(server)
 io.on('connection', socket => {
     console.log(`new connect: ${socket.id}`);
 
-    socket.on('ping', (data) =>{
-        socket.emit('pong')
-        console.log('PING');
-    })
 
     socket.on('message', (data) =>{
-        socket.emit('new_message', data)
+        socket.broadcast.emit('new_message', {...data, self: false})
+        console.log(data);
     })
 })
 
