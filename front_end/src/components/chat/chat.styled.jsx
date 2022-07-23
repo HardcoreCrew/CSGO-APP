@@ -80,3 +80,9 @@ export const ChatInput = styled.input`
     height: 26px;
     
 `
+
+export const ChatFriendList = styled.div`      
+    width: 200px;
+    height: 70vh;
+    background-color: #555;
+`

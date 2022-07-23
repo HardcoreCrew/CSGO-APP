@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {langPl, langEn} from './utils/langs.js'
 import {LangContext} from './context/langContext.js'
 import {ThemeProvider} from 'styled-components'
 import { lightTheme, darkTheme} from './styles/themes.js'
 import GlobalCSS from './styles/global.styled.js'
-import Chatbox from './components/chat/chatbox.jsx';
-import { AppButton } from './components/shared/buttons/buttons.styled.js';
-import { AppInput } from './components/shared/inputs/inputs.styled.js';
+import BaseLayout from './layouts/baseLayout.js';
+
+
 
 
 
@@ -30,12 +30,11 @@ function App() {
     <LangContext.Provider value={languageState ==='pl'? langPl : langEn}>
     <ThemeProvider theme={themeState ==='light'? lightTheme : darkTheme}>
     <GlobalCSS />
-      <div className="App">
-        {/* <Chatbox /> */}
-        {/* <AppButton>REJESTRACJA</AppButton> */}
-        {/* <AppInput type='text' placeholder="LOGIN" /> */}
-        {/* <AppInput type='text' placeholder="HASŁO" /> */}
-      </div>
+    
+    <div className="App">
+      <BaseLayout />
+    </div>
+
     </ThemeProvider> 
 
     </LangContext.Provider>

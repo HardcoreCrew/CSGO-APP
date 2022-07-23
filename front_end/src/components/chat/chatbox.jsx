@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import io from 'socket.io-client'
-import { ChatBoxContent, ChatBoxMsgBottom, ChatBoxMsgFaker, ChatBoxWrapper, ChatCard, ChatInput } from './chat.styled';
+import { ChatBoxContent, ChatBoxMsgBottom, ChatBoxWrapper,  ChatInput } from './chat.styled';
 import ChatMsgElement from './chatMsgElement';
 import { DiSwift } from 'react-icons/di';
+import io from 'socket.io-client'
 
 
 const socket = io.connect("http://localhost:3137")
