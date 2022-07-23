@@ -5,6 +5,8 @@ import {ThemeProvider} from 'styled-components'
 import { lightTheme, darkTheme} from './styles/themes.js'
 import GlobalCSS from './styles/global.styled.js'
 import Chatbox from './components/chat/chatbox.jsx';
+import { AppButton } from './components/shared/buttons/buttons.styled.js';
+import { AppInput } from './components/shared/inputs/inputs.styled.js';
 
 
 
@@ -29,7 +31,10 @@ function App() {
     <ThemeProvider theme={themeState ==='light'? lightTheme : darkTheme}>
     <GlobalCSS />
       <div className="App">
-        <Chatbox />
+        {/* <Chatbox /> */}
+        {/* <AppButton>REJESTRACJA</AppButton> */}
+        {/* <AppInput type='text' placeholder="LOGIN" /> */}
+        {/* <AppInput type='text' placeholder="HASŁO" /> */}
       </div>
     </ThemeProvider> 
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import io from 'socket.io-client'
-import { ChatBoxContent, ChatBoxMsgBottom, ChatBoxMsgFaker, ChatBoxWrapper, ChatInput } from './chat.styled';
+import { ChatBoxContent, ChatBoxMsgBottom, ChatBoxMsgFaker, ChatBoxWrapper, ChatCard, ChatInput } from './chat.styled';
 import ChatMsgElement from './chatMsgElement';
 import { DiSwift } from 'react-icons/di';
 
@@ -15,6 +15,7 @@ const chatContent = useRef()
 const [isConnected, setIsConnected] = useState(socket.connected);
 const [msgToSend, setMsgToSend] = useState();
 const [messages, setMessages] = useState([]);
+const [nameVar, setNameVar] = useState();
 
 
     useEffect(() => {
@@ -48,16 +49,24 @@ const [messages, setMessages] = useState([]);
       
        
     const sendMessage = () => {
-        socket.emit('message', {id: socket.id, msg: msgToSend, self: false});
-        setMessages(messages? prevMessages => [...prevMessages, {id: socket.id, msg: msgToSend, self: true}] : {id: socket.id, msg: msgToSend, self: true});
+        socket.emit('message', {id: socket.id, msg: msgToSend, self: false, name: window.sessionStorage.getItem("name")});
+        setMessages(messages? prevMessages => [...prevMessages, {id: socket.id, msg: msgToSend, self: true, name: window.sessionStorage.getItem("name")}] : {id: socket.id, msg: msgToSend, self: true, name: window.sessionStorage.getItem("name")});
         setMsgToSend('')
         chatInput.current?.focus() 
         setTimeout(() => {
             scroller()
         }, 100);
     }
+
+    const setName = () =>{
+        window.sessionStorage.setItem("name", nameVar);
+    }
+
     return (
         <ChatBoxWrapper>
+            <ChatInput type="text" onChange={e => setNameVar(e.target.value)} />
+            <button onClick={setName}>x</button>
+        
             <ChatBoxContent id='chatbox' ref={chatContent}>
                 {messages? messages.map(el => <ChatMsgElement {...el}/>) : 'DUPA'}
             </ChatBoxContent>

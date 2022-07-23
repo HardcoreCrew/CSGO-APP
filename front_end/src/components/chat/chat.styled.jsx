@@ -1,26 +1,43 @@
 import styled from 'styled-components'
 
-export const ChatMsgWrapper = styled.div`      
-    width: 100%;
-    min-height: 40px;
-    background-color: ${(props) => props.owner? ({theme}) => theme.msgBody_self : ({theme}) => theme.msgBody_standard};
-`
-export const ChatMsgNick = styled.div`      
-    width: 100%;
+export const ChatMsgContainer = styled.div`   
     display:flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: ${(props) => props.owner? 'flex-end' : 'flex-start' };  
+    margin-bottom:3px;
+    padding: 10px;
+`
+export const ChatMsgWrapper = styled.div`      
+    max-width: 90%;
+    padding: 5px;
+    background-color: ${(props) => props.owner? ({theme}) => theme.msgBody_self : ({theme}) => theme.msgBody_standard};
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+    `
+export const ChatMsgNick = styled.div`      
+    font-size: 16px;
+`
+export const ChatMsgitem = styled.div`      
+    font-size: 16px;
+`
+
+export const ChatCard = styled.div`      
+    font-size: 20px;
+    height: 24px;
+    width: 100%;
+    background-color: ${({theme}) => theme.msgBody_self};
 `
 
 export const ChatBoxWrapper = styled.div`      
     position: absolute;
     content: '';
-    bottom: 0;
-    right: 100px;
-    width: 260px;
+    bottom: 60px;
+    right: 140px;
+    width: 360px;
     height: 300px;
     background-color: #222;
-    padding: 5px;
 `
 
 export const ChatBoxContent = styled.div`      
@@ -28,11 +45,12 @@ export const ChatBoxContent = styled.div`
     height: 265px;   
     overflow: scroll;
     overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
+    
+    
+    
     scroll-margin-top: 10px;
     ::-webkit-scrollbar {
-    width: 10px;
+        width: 10px;
     }
 
     /* Track */
