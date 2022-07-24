@@ -3,6 +3,7 @@ import {Contener, Content, Header, Footer, ContentDisplay, FriendListDisplay } f
 import {Route, Routes } from "react-router-dom";
 import FakePage from '../pages/fakePage';
 import ChatList from '../components/chat/chatList';
+import ChatBoxContainer from '../components/chat/chatBoxContainer';
 
 export default function BaseLayout() {
     return (
@@ -13,7 +14,11 @@ export default function BaseLayout() {
 
                 <Content>
                     <ContentDisplay>
-                        CONTENT
+
+                        <input type='text' placeholder='name'/><br/>
+                        <input type='text' placeholder='room'/><br/>
+                        <button>JOIN</button>
+
                         <Routes>
                             <Route path="/fake" element={<FakePage />} />
                         </Routes>
@@ -21,6 +26,7 @@ export default function BaseLayout() {
                     <FriendListDisplay>
                         <ChatList />
                     </FriendListDisplay>
+                    <ChatBoxContainer />
                 </Content>
 
                 <Footer>

@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 
+
+
+
+
 export const ChatMsgContainer = styled.div`   
     display:flex;
     justify-content: ${(props) => props.owner? 'flex-end' : 'flex-start' };  
@@ -78,11 +82,69 @@ export const ChatBoxMsgBottom = styled.div`
 export const ChatInput = styled.input`      
     width: 85%;
     height: 26px;
-    
 `
 
 export const ChatFriendList = styled.div`      
-    width: 200px;
+    width: 280px;
     height: 70vh;
-    background-color: #555;
+    padding: 10px;
 `
+
+export const ChatListItemWrapper = styled.div`      
+    width: 100%;
+    height: 40px;
+    background-color: #111;
+    border: 1px solid #777;
+    margin-bottom: 3px;
+    transition: .3s;
+    padding: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 5px;
+
+    &:hover{
+        background-color: #222;
+        cursor: pointer;
+    }
+`
+
+export const ChatListItemAvatar = styled.div`   
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #999;
+    margin-right: 10px;
+`   
+
+export const ChatListItemTag = styled.div`   
+    font-size: 16px;
+    margin-right: 3px;
+    max-width: 20%;
+`   
+
+export const ChatListItemName = styled.div`   
+    font-size: 16px;
+    max-width: 50%;
+    margin-right: 8px;
+`   
+
+export const ChatListItemBadge = styled.div`   
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: gold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`  
+
+export const ChatBoxContainerWrapper = styled.div`   
+    width: 800px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: gold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`   
