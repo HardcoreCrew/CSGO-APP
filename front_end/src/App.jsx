@@ -21,7 +21,7 @@ function App() {
   
   const handleLanguage = () =>{
     languageState === 'pl' ? setLanguageState('en') : setLanguageState('pl')
-  }
+  } 
 
  
 
