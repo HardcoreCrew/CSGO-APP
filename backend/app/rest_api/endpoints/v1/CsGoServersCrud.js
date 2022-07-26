@@ -1,12 +1,22 @@
-import express from 'express'
-import v1Url from './v1_base_url.js'
+import { 
+    doc, 
+    BASE_URL,
+ } from './CsGoServersCrudDoc.js'
 
 
-const url = `${v1Url}/cs-go-servers`
 let idCounter = 0
 
 
 class CsGoServersCrud {
+
+    get doc() {
+        return doc
+    }
+
+    registerMethods(router) {
+        router.post(BASE_URL, this.addServerRequest)
+    }
+
     addServerRequest(req, res) {
         const { lobby_id, maps } = req.body
 
@@ -45,9 +55,4 @@ class CsGoServersCrud {
     }
 }
 
-const controller = new CsGoServersCrud()
-
-const cSGoServersCrudRouter = express.Router()
-cSGoServersCrudRouter.post(url, controller.addServerRequest)
-
-export default cSGoServersCrudRouter
+export default new CsGoServersCrud()

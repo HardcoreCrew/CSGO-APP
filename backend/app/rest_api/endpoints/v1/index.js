@@ -1,5 +1,5 @@
-import cSGoServersCrudRouter from './CsGoServersCrud.js'
+import cSGoServersCrudController from './CsGoServersCrud.js'
 
-export {
-    cSGoServersCrudRouter,
-}
+export default [
+    cSGoServersCrudController,
+]
