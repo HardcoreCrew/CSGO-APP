@@ -1,18 +1,18 @@
 import React from 'react'
 import { ChatListItemAvatar, ChatListItemBadge, ChatListItemName, ChatListItemTag, ChatListItemWrapper } from './chat.styled'
 
-export default function ChatListItem({...player}) {
+export default function ChatListItem({player}) {
     return (
         <ChatListItemWrapper >
             <ChatListItemAvatar/>
             <ChatListItemTag>
-                [ {player.tag} ]
+                [ MOCKED]
             </ChatListItemTag>
             <ChatListItemName>
-                {player.name}
+                {player}
             </ChatListItemName>
             <ChatListItemBadge>
-                {player.lvl} 
+                0 
             </ChatListItemBadge>
         </ChatListItemWrapper>
     )

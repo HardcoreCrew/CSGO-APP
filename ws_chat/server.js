@@ -2,7 +2,6 @@ const expres = require('express');
 const http = require('http')
 const socketio = require('socket.io')
 const cors = require('cors')
-const chatRoom = require('./utils/chatRoom')
 
 const app = expres();
 app.use(cors())
@@ -11,11 +10,24 @@ const server = http.createServer(app, {
 })
 const io = socketio(server)
 
+let onlinePlayers = []
+
 
 io.on('connection', socket => {
-    console.log(`new connect: ${socket.id}`);
+    // io.to(socket.id).emit('my', onlinePlayers)
+    console.log(`Połączenie: ${socket.id}`);
+    
+    socket.on('isOn', (data) =>{
+        onlinePlayers.push(socket.id)
+        console.log(onlinePlayers);
+        io.emit('onlinedata', onlinePlayers)
+    })
 
-
+    socket.on('isOff', (data) =>{
+        console.log('UCIEKA: ' + socket.id);
+        onlinePlayers = onlinePlayers.filter(x => x != socket.id)
+        io.emit('onlinedata', onlinePlayers)
+    })
 
     socket.on('message', (data) =>{
         socket.broadcast.emit('new_message', {...data, self: false})

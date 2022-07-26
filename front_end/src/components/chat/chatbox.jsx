@@ -5,40 +5,40 @@ import { DiSwift } from 'react-icons/di';
 import io from 'socket.io-client'
 
 
-const socket = io.connect("http://localhost:3137")
+// const socket = io.connect("http://localhost:3137")
 
 export default function Chatbox() {
     
 const chatInput = useRef()
 const chatContent = useRef()
 
-const [isConnected, setIsConnected] = useState(socket.connected);
+// const [isConnected, setIsConnected] = useState(socket.connected);
 const [msgToSend, setMsgToSend] = useState();
 const [messages, setMessages] = useState([]);
 const [nameVar, setNameVar] = useState();
 
 
-    useEffect(() => {
-        socket.on('connect', () => {
-          setIsConnected(true);
-        });
+    // useEffect(() => {
+    //     socket.on('connect', () => {
+    //       setIsConnected(true);
+    //     });
     
-        socket.on('disconnect', () => {
-          setIsConnected(false);
-        });
+    //     socket.on('disconnect', () => {
+    //       setIsConnected(false);
+    //     });
     
-        socket.on('new_message', (data) => {
-          console.log(data);
-          setMessages(messages? prevMessages => [...prevMessages, data] : data);
-          scroller()
-        });
+    //     socket.on('new_message', (data) => {
+    //       console.log(data);
+    //       setMessages(messages? prevMessages => [...prevMessages, data] : data);
+    //       scroller()
+    //     });
         
-        return () => {
-            socket.off('connect');
-            socket.off('disconnect');
-            socket.off('new_message');
-        };
-    }, []);
+    //     return () => {
+    //         socket.off('connect');
+    //         socket.off('disconnect');
+    //         socket.off('new_message');
+    //     };
+    // }, []);
     
     
     const scroller = () =>{
@@ -49,8 +49,8 @@ const [nameVar, setNameVar] = useState();
       
        
     const sendMessage = () => {
-        socket.emit('message', {id: socket.id, msg: msgToSend, self: false, name: window.sessionStorage.getItem("name")});
-        setMessages(messages? prevMessages => [...prevMessages, {id: socket.id, msg: msgToSend, self: true, name: window.sessionStorage.getItem("name")}] : {id: socket.id, msg: msgToSend, self: true, name: window.sessionStorage.getItem("name")});
+        // socket.emit('message', {id: socket.id, msg: msgToSend, self: false, name: window.sessionStorage.getItem("name")});
+        // setMessages(messages? prevMessages => [...prevMessages, {id: socket.id, msg: msgToSend, self: true, name: window.sessionStorage.getItem("name")}] : {id: socket.id, msg: msgToSend, self: true, name: window.sessionStorage.getItem("name")});
         setMsgToSend('')
         chatInput.current?.focus() 
         setTimeout(() => {

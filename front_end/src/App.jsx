@@ -23,11 +23,12 @@ function App() {
     languageState === 'pl' ? setLanguageState('en') : setLanguageState('pl')
   } 
 
-  
+
 
   
   return ( 
     <LangContext.Provider value={languageState ==='pl'? langPl : langEn}>
+    
     <ThemeProvider theme={themeState ==='light'? lightTheme : darkTheme}>
     <GlobalCSS />
     
