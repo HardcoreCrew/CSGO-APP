@@ -52,7 +52,7 @@ const doc = {
     [BASE_URL]: {
         post: {
             tags: ["CS GO server requests"],
-            description: "CS GO server requests CRUD operations",
+            description: "Add a new CS GO server request",
             operationId: "addServerRequest",
             requestBody: {content: inputContent},
             responses: {
