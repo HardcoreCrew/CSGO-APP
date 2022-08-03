@@ -18,7 +18,7 @@ io.on('connection', socket => {
     console.log(`Połączenie: ${socket.id}`);
     
     socket.on('isOn', (data) =>{
-        onlinePlayers.push({id: socket.id, name: data})
+        onlinePlayers.push({id: socket.id, userData: data})
         console.log(onlinePlayers);
         io.emit('onlinedata', onlinePlayers)
     })

@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { PlayerPanelWrapper } from './playerPanel.styled'
 
-export default function index({children}) {
+export default function Index({children}) {
+
+    
+
     return (
         <PlayerPanelWrapper>
+
+            
             {children}
         </PlayerPanelWrapper>
     )

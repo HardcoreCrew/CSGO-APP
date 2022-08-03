@@ -10,7 +10,8 @@ import Header from '../components/header'
 import PlayerHeaderPanel from '../components/header/playerPanel'
 import { LoginBoxInputContainer } from '../components/login_box/loginBox.styled';
 import { AppInput } from '../components/shared/buttons/inputs/inputs.styled';
-import {onlineUsers, userData} from '../db'
+import {userBaseData, userData} from '../db'
+import LogedPanel from '../components/header/playerPanel/logedPanel';
 
 export default function BaseLayout() {
     const [loginState, setLoginState] = useState(false)
@@ -21,7 +22,11 @@ export default function BaseLayout() {
         for (const user of userData) {
             if (user.name === loginData.login && user.appPas === loginData.pass) {
                 setLoginState(true)
-                // axios add user to online list
+                // axios get user profile data
+                // add to userData context ??
+                const user = userBaseData.filter(x => x.name === loginData.login)
+                console.log(user);
+                localStorage.setItem("userData", JSON.stringify(user));
             }
         }
     }
@@ -31,10 +36,12 @@ export default function BaseLayout() {
     return (
         <Contener>
                 
+
                 <Header>
                     <PlayerHeaderPanel>
-                    {loginState?  
-                        <AppButton onClick={() => setLoginState(false)}> LOGOUT </AppButton> :<>
+                    {loginState?  <>
+                        <LogedPanel />
+                        <AppButton onClick={() => setLoginState(false)}> LOGOUT </AppButton></> :<>
                         <LoginBox> 
                              <LoginBoxInputContainer>
                                 <AppInput type='text' placeholder="LOGIN" value={loginData.login} onChange={e => setloginData(prevstate => ({...prevstate, login: e.target.value}) )}/>

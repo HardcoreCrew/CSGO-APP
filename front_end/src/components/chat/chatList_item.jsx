@@ -6,13 +6,13 @@ export default function ChatListItem({player}) {
         <ChatListItemWrapper >
             <ChatListItemAvatar/>
             <ChatListItemTag>
-                [ MOCKED]
+                {player.userData[0].userTag} 
             </ChatListItemTag>
             <ChatListItemName>
-                {player.name}
+                {player.userData[0].name}
             </ChatListItemName>
             <ChatListItemBadge>
-                0 
+            {player.userData[0].accLvl}
             </ChatListItemBadge>
         </ChatListItemWrapper>
     )

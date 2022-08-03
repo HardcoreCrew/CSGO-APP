@@ -25,7 +25,7 @@ export default function ChatList({loginState}) {
 
         socket.on('connect', () => {
             setIsConnected(true);
-            socket.emit('isOn', localStorage.getItem("nickName"))
+            socket.emit('isOn', JSON.parse(localStorage.getItem("userData")))
         });
 
         socket.on('onlinedata', (data) => {

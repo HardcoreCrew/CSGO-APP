@@ -15,25 +15,33 @@ export const userData = [
         avatarUrl: '',
         userTag: '[HC]',
         accLvl: 23
+    },{
+        id: 3,
+        name: 'Rivex',
+        appPas: 'test',
+        avatarUrl: '',
+        userTag: '[Sni]',
+        accLvl: 8
     },
     
 ]
 
-export const onlineUsers = [
+export const userBaseData = [
     {
-        id: 1,
         userId: 1,
-        userName: 'Vorczu',
+        name: 'Vorczu',
         userTag: '[RoT]',
-        accLvl: 12,
-        status: 'online'
+        accLvl: 12
     },{
-        id: 2,
-        userId: 1,
-        userName: 'Jsr',
+        userId: 2,
+        name: 'Jsr',
         userTag: '[HC]',
-        accLvl: 23,
-        status: 'online'
+        accLvl: 23
+    },{
+        userId: 3,
+        name: 'Rivex',
+        userTag: '[Sni]',
+        accLvl: 8
     }
 ]
 
