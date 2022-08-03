@@ -18,14 +18,14 @@ io.on('connection', socket => {
     console.log(`Połączenie: ${socket.id}`);
     
     socket.on('isOn', (data) =>{
-        onlinePlayers.push(socket.id)
+        onlinePlayers.push({id: socket.id, name: data})
         console.log(onlinePlayers);
         io.emit('onlinedata', onlinePlayers)
     })
 
     socket.on('isOff', (data) =>{
         console.log('UCIEKA: ' + socket.id);
-        onlinePlayers = onlinePlayers.filter(x => x != socket.id)
+        onlinePlayers = onlinePlayers.filter(x => x.id != socket.id)
         io.emit('onlinedata', onlinePlayers)
     })
 

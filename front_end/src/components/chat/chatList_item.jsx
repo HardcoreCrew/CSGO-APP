@@ -9,7 +9,7 @@ export default function ChatListItem({player}) {
                 [ MOCKED]
             </ChatListItemTag>
             <ChatListItemName>
-                {player}
+                {player.name}
             </ChatListItemName>
             <ChatListItemBadge>
                 0 

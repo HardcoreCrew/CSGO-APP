@@ -19,7 +19,7 @@ export default function ChatList({loginState}) {
         
         window.addEventListener("beforeunload", (ev) => {   
             ev.preventDefault();
-            socket.emit('isOff', localStorage.getItem("nickName"))
+            socket.emit('isOff')
         });
 
 
@@ -29,7 +29,7 @@ export default function ChatList({loginState}) {
         });
 
         socket.on('onlinedata', (data) => {
-            let incData = data.filter(x => x != socket.id)
+            let incData = data.filter(x => x.id != socket.id)
             setConnectedPlayers([...incData])
             console.log(data);
         });
@@ -48,28 +48,6 @@ export default function ChatList({loginState}) {
     };
     }, []);
 
-    const mockedPlayers = [{
-        id:1,
-        tag: 'HC',
-        avatarLink: '',
-        name: "V0rczu",
-        lvl: 1
-    },
-    {
-        id:2,
-        tag: 'L3Vy',
-        avatarLink: '',
-        name: "Konr@d3K",
-        lvl: 1
-    },
-    {
-        id:3,
-        tag: 'SHyyZ',
-        avatarLink: '',
-        name: "Konr@d3K",
-        lvl: 1
-    }]
-
     const [chatBoxArray, setchatBoxArray] = useState([]) 
     
     return (
@@ -77,10 +55,8 @@ export default function ChatList({loginState}) {
             <ChatFriendList>
                 {connectedPlayers?.map(el => <div onClick={() => setchatBoxArray(prev => [...prev, el])}> <ChatListItem player={el}/> </div> )}
             </ChatFriendList>
-
             {chatBoxArray.map(el => <Chatbox />)}
-            
-        </>
+        </>        
     )
 }
 
