@@ -5,4 +5,5 @@ export const PlayerPanelWrapper = styled.div`
     display:flex;
     height: 8vh;
     right: 20px;
+    
 `

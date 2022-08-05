@@ -16,6 +16,10 @@ let onlinePlayers = []
 io.on('connection', socket => {
     // io.to(socket.id).emit('my', onlinePlayers)
     console.log(`Połączenie: ${socket.id}`);
+
+    setInterval(() => {
+        io.emit('ping')        
+    }, 60000);
     
     socket.on('isOn', (data) =>{
         onlinePlayers.push({id: socket.id, userData: data})
@@ -37,6 +41,11 @@ io.on('connection', socket => {
     socket.on('joinRoom', (data) =>{
         socket.broadcast.emit('new_message', {...data, self: false})
         console.log(data);
+    })
+
+    socket.on('pong', (data) =>{
+        console.log(socket.id);
+        
     })
 
     

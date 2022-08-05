@@ -8,7 +8,7 @@ export const LoginBoxWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    background-color: #333;
+    background-color: ${({theme}) => theme.body_sec };
 `
 
 export const LoginBoxInputContainer = styled.div`
@@ -16,5 +16,5 @@ export const LoginBoxInputContainer = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    background-color: #333;
+    background-color: ${({theme}) => theme.body_sec };
 `

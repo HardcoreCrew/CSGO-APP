@@ -7,19 +7,23 @@ import io from 'socket.io-client'
 
 
 
-
 export default function ChatList({loginState}) {
-
+    
     const [isConnected, setIsConnected] = useState(loginState);
     const [connectedPlayers, setConnectedPlayers] = useState([]);
     
     useEffect(() => {
-
+        
         const socket = io.connect("http://localhost:3137")
         
+        window.onbeforeunload = function(){socket.emit('isOff')};
         window.addEventListener("beforeunload", (ev) => {   
             ev.preventDefault();
             socket.emit('isOff')
+        });
+
+        socket.on('ping', () => {
+            socket.emit('pong')
         });
 
 

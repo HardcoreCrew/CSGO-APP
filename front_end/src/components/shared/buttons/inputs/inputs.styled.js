@@ -4,7 +4,7 @@ export const AppInput = styled.input.attrs({
     type: 'text'
   })`    
     width: ${(props) => props.width};
-    background-color: ${({theme}) => theme.baseInputBackground};
+    background-color: ${({theme}) => theme.body };
     color: ${({theme}) => theme.color };
     padding: 7px 20px;
     transition: .3s;
@@ -18,7 +18,7 @@ export const AppInput = styled.input.attrs({
     }
 
     &:hover{
-        background-color: ${({theme}) => theme.baseInputBackground_active};      
+        background-color: ${({theme}) => theme.baseInputBackground};   
         border-bottom: .5px solid #999;  
     }
 `

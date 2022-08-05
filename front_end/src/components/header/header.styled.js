@@ -15,7 +15,5 @@ export const HeaderBackground = styled.div`
     display:flex;
     width: 100vw;
     height: 20vh;
-    background-image: url(${bg});
-    background-size: cover;
-    background-position-y: -280px;
+    background: ${({theme}) => theme.body };
 `

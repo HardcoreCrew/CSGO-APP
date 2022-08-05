@@ -47,8 +47,10 @@ export default function BaseLayout() {
                                 <AppInput type='text' placeholder="LOGIN" value={loginData.login} onChange={e => setloginData(prevstate => ({...prevstate, login: e.target.value}) )}/>
                                 <AppInput type='password' placeholder="HASŁO" value={loginData.pass} onChange={e => setloginData(prevstate => ({...prevstate, pass: e.target.value}) )}/> 
                             </LoginBoxInputContainer>  
-
-                            <AppButton  onClick={loginHandler}> WBIJAMY!</AppButton>
+                            <LoginBoxInputContainer>
+                                <AppButton  onClick={loginHandler}> Logowanie</AppButton>
+                                <AppButton  onClick={loginHandler}> Rejestracja</AppButton>
+                            </LoginBoxInputContainer>
                         </LoginBox> </>   } 
                     </PlayerHeaderPanel>
                 </Header>
@@ -66,7 +68,7 @@ export default function BaseLayout() {
                 </Content>
 
                 <Footer>
-                    FOOTER
+                    
                 </Footer>     
 
         </Contener>
