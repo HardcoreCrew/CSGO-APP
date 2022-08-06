@@ -1,7 +1,10 @@
 
 export const darkTheme = {
     body: '#080f1a',
-    body_sec: 'hsl(217, 54%, 11%)' ,
+    body_sec: '#0d192b' ,
+    body_sec_light: 'hsl(217, 34%, 11%)' ,
+    body_sec_light_secondary: '#202d45' ,
+    icons_base: '#999',
     color: 'white',
     _colorFont: '#127edf',
     _lightBox: '#05131f',
@@ -10,6 +13,10 @@ export const darkTheme = {
     msgBody_self: '#05131f',
     baseColor: 'hsl(178, 33%, 50% )',
     baseColor_active: 'hsla(178, 100%, 50%, 0.61)',
+    baseColor_active_50: 'hsla(178, 70%, 50%, 0.30)',
+    baseColor_secondary: '#ef841d',
+    baseColor_secondary_50: 'rgba(240, 132, 30, 0.8)',
+    baseColor_secondary_active: '#f5973e',
     baseInputBackground: 'hsl(216, 42%, 20%)',
     baseInputBackground_active: '#333',
     soft_blue: 'hsl(215, 51%, 70%)',

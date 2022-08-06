@@ -1,9 +1,10 @@
 import React from 'react'
+import { CenterAll } from '../../styles/layout.styled'
 
 export default function index() {
     return (
-        <div>
+        <CenterAll>
             REGISTER
-        </div>
+        </CenterAll>
     )
 }

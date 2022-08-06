@@ -6,3 +6,15 @@ export const LayoutWrapper = styled.div`
     
 `
 
+export const CenterAll = styled.div`   
+      width: 100vw;
+      height: 100vh;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+`
+
+export const OrangeText = styled.span`   
+      color: ${({theme}) => theme.baseColor_secondary};
+`
+
