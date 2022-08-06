@@ -2,13 +2,13 @@
 
 export const langPl = {
     navLinks : [{
-        linkTo: '/start',
+        linkTo: '/',
         linkText: 'START'
     },{
-        linkTo: '/omnie',
+        linkTo: '/logowanie',
         linkText: 'O MNIE'
     },{
-        linkTo: '/projekty',
+        linkTo: '/rejestracja',
         linkText: 'PROJEKTY'
     },{
         linkTo: '/kontakt',
@@ -22,13 +22,13 @@ export const langPl = {
 
 export const langEn = {
     navLinks : [{
-        linkTo: '/start',
+        linkTo: '/',
         linkText: 'START'
     },{
-        linkTo: '/about',
+        linkTo: '/login',
         linkText: 'ABOUT'
     },{
-        linkTo: '/projects',
+        linkTo: '/register',
         linkText: 'PROJECTS'
     },{
         linkTo: '/contact',

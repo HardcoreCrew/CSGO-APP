@@ -4,9 +4,10 @@ import {LangContext} from './context/langContext.js'
 import {ThemeProvider} from 'styled-components'
 import { lightTheme, darkTheme} from './styles/themes.js'
 import GlobalCSS from './styles/global.styled.js'
+import {Route, Routes } from "react-router-dom";
 import BaseLayout from './layouts/baseLayout.js';
-
-
+import LoginPage from './pages/login'
+import RegisterPage from './pages/register'
 
 
 
@@ -33,7 +34,11 @@ function App() {
     <GlobalCSS />
     
     <div className="App">
-      <BaseLayout />
+      <Routes>
+          <Route path="/" element={<BaseLayout />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+      </Routes>
     </div>
 
     </ThemeProvider> 

@@ -4,14 +4,11 @@ import {Route, Routes } from "react-router-dom";
 import FakePage from '../pages/fakePage';
 import ChatList from '../components/chat/chatList';
 import ChatBoxContainer from '../components/chat/chatBoxContainer';
-import LoginBox from '../components/login_box'
-import { AppButton } from '../components/shared/buttons/buttons.styled';
 import Header from '../components/header'
 import PlayerHeaderPanel from '../components/header/playerPanel'
-import { LoginBoxInputContainer } from '../components/login_box/loginBox.styled';
-import { AppInput } from '../components/shared/buttons/inputs/inputs.styled';
 import {userBaseData, userData} from '../db'
-import LogedPanel from '../components/header/playerPanel/logedPanel';
+import LoginPage from '../pages/login'
+
 
 export default function BaseLayout() {
     const [loginState, setLoginState] = useState(false)
@@ -34,24 +31,9 @@ export default function BaseLayout() {
 
 
     return (
-        <Contener>
-                
-
+        <Contener>               
                 <Header>
                     <PlayerHeaderPanel>
-                    {loginState?  <>
-                        <LogedPanel />
-                        <AppButton onClick={() => setLoginState(false)}> LOGOUT </AppButton></> :<>
-                        <LoginBox> 
-                             <LoginBoxInputContainer>
-                                <AppInput type='text' placeholder="LOGIN" value={loginData.login} onChange={e => setloginData(prevstate => ({...prevstate, login: e.target.value}) )}/>
-                                <AppInput type='password' placeholder="HASŁO" value={loginData.pass} onChange={e => setloginData(prevstate => ({...prevstate, pass: e.target.value}) )}/> 
-                            </LoginBoxInputContainer>  
-                            <LoginBoxInputContainer>
-                                <AppButton  onClick={loginHandler}> Logowanie</AppButton>
-                                <AppButton  onClick={loginHandler}> Rejestracja</AppButton>
-                            </LoginBoxInputContainer>
-                        </LoginBox> </>   } 
                     </PlayerHeaderPanel>
                 </Header>
 
@@ -69,8 +51,8 @@ export default function BaseLayout() {
 
                 <Footer>
                     
-                </Footer>     
-
+                </Footer>    
+                
         </Contener>
     )
 }
