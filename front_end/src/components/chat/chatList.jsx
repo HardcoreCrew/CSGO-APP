@@ -59,7 +59,7 @@ export default function ChatList({loginState}) {
             <ChatFriendList>
                 {connectedPlayers?.map(el => <div onClick={() => setchatBoxArray(prev => [...prev, el])}> <ChatListItem player={el}/> </div> )}
             </ChatFriendList>
-            {chatBoxArray.map(el => <Chatbox />)}
+            {/* {chatBoxArray.map(el => <Chatbox />)} */}
         </>        
     )
 }

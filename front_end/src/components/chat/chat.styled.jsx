@@ -148,3 +148,12 @@ export const ChatBoxContainerWrapper = styled.div`
     align-items: center;
     justify-content: center;
 `   
+
+export const TopBar = styled.div`   
+    width: 100%;
+    height: 25px;
+    background-color: ${({theme}) => theme.baseColor};
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+`   

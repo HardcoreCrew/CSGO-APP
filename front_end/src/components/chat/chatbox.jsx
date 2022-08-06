@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ChatBoxContent, ChatBoxMsgBottom, ChatBoxWrapper,  ChatInput } from './chat.styled';
+import { ChatBoxContent, ChatBoxMsgBottom, ChatBoxWrapper,  ChatInput, TopBar } from './chat.styled';
 import ChatMsgElement from './chatMsgElement';
 import { DiSwift } from 'react-icons/di';
 import io from 'socket.io-client'
@@ -64,11 +64,12 @@ const [nameVar, setNameVar] = useState();
 
     return (
         <ChatBoxWrapper>
-            <ChatInput type="text" onChange={e => setNameVar(e.target.value)} />
-            <button onClick={setName}>x</button>
-        
+            <TopBar> 
+                <button onClick={setName}>x</button>
+            </TopBar>
+            
             <ChatBoxContent id='chatbox' ref={chatContent}>
-                {messages? messages.map(el => <ChatMsgElement {...el}/>) : 'DUPA'}
+                {messages? messages.map(el => <ChatMsgElement {...el}/>) : ' '}
             </ChatBoxContent>
            
         
