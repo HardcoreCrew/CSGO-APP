@@ -3,8 +3,8 @@ import { createGlobalStyle } from 'styled-components'
 export const AppStyleWrapper = createGlobalStyle`  
     body {    
         
-        background: ${({theme}) => theme.body };
-        color: ${({theme}) => theme.color };
+        background: ${props => props.theme.colors.baseColor  };
+        color: ${props => props.theme.colors.baseColor  };
         margin: 0;
         font-family: 'Iceland', cursive;
         font-size: 14px;
@@ -15,7 +15,7 @@ export const AppStyleWrapper = createGlobalStyle`
             transition: .3s;
 
             &:hover{
-                color: ${({theme}) => theme._colorFont };
+                color: ${props => props.theme.colors.baseColor  };
             }
         }
     }

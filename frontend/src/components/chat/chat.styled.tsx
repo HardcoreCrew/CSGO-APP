@@ -1,19 +1,21 @@
 import styled from 'styled-components'
 
+interface Props {
+    owner: string;
+  }
 
 
 
-
-export const ChatMsgContainer = styled.div`   
+export const ChatMsgContainer = styled.div<Props>`   
     display:flex;
     justify-content: ${(props) => props.owner? 'flex-end' : 'flex-start' };  
     margin-bottom:3px;
     padding: 10px;
 `
-export const ChatMsgWrapper = styled.div`      
+export const ChatMsgWrapper = styled.div<Props>`      
     max-width: 90%;
     padding: 5px;
-    background-color: ${(props) => props.owner? ({theme}) => theme.msgBody_self : ({theme}) => theme.msgBody_standard};
+    background-color: ${(props) => props.owner? props => props.theme.colors.baseColor: props => props.theme.colors.baseColor_active};
     padding-right: 10px;
     padding-left: 10px;
     border-radius: 10px;
@@ -31,7 +33,7 @@ export const ChatCard = styled.div`
     font-size: 20px;
     height: 24px;
     width: 100%;
-    background-color: ${({theme}) => theme.msgBody_self};
+    background-color: ${props => props.theme.colors.baseColor};
 `
 
 export const ChatBoxWrapper = styled.div`      
@@ -152,7 +154,7 @@ export const ChatBoxContainerWrapper = styled.div`
 export const TopBar = styled.div`   
     width: 100%;
     height: 25px;
-    background-color: ${({theme}) => theme.baseColor};
+    background-color: ${props => props.theme.colors.baseColor};
     display: flex;
     align-items: center;
     justify-content: flex-end;

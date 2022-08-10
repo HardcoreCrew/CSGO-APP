@@ -7,7 +7,6 @@ import ChatBoxContainer from '../components/chat/chatBoxContainer';
 import Header from '../components/header'
 import PlayerHeaderPanel from '../components/header/playerPanel'
 import {userBaseData, userData} from '../db'
-import LoginPage from '../pages/login'
 
 
 export default function BaseLayout() {

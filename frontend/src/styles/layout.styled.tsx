@@ -15,6 +15,12 @@ export const CenterAll = styled.div`
 `
 
 export const OrangeText = styled.span`   
-      color: ${({theme}) => theme.baseColor_secondary};
+      color: ${props => props.theme.colors.baseColor  };
+`
+
+export const AppLabel = styled.label`   
+      margin: 0;
+      padding: 0;
+      height: 3px;
 `
 

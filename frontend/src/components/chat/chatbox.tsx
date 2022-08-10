@@ -9,49 +9,24 @@ import io from 'socket.io-client'
 
 export default function Chatbox() {
     
-const chatInput = useRef()
-const chatContent = useRef()
+const chatInput = useRef<HTMLInputElement>(null)
+const chatContent = useRef<HTMLInputElement>(null)
 
 // const [isConnected, setIsConnected] = useState(socket.connected);
-const [msgToSend, setMsgToSend] = useState();
-const [messages, setMessages] = useState([]);
-const [nameVar, setNameVar] = useState();
-
-
-    // useEffect(() => {
-    //     socket.on('connect', () => {
-    //       setIsConnected(true);
-    //     });
-    
-    //     socket.on('disconnect', () => {
-    //       setIsConnected(false);
-    //     });
-    
-    //     socket.on('new_message', (data) => {
-    //       console.log(data);
-    //       setMessages(messages? prevMessages => [...prevMessages, data] : data);
-    //       scroller()
-    //     });
-        
-    //     return () => {
-    //         socket.off('connect');
-    //         socket.off('disconnect');
-    //         socket.off('new_message');
-    //     };
-    // }, []);
+const [msgToSend, setMsgToSend] = useState("");
+const [messages, setMessages] = useState<any[]>([])
+const [nameVar, setNameVar] = useState("");
     
     
     const scroller = () =>{
         var objDiv = document.getElementById("chatbox");
-        objDiv.scrollTop = objDiv.scrollHeight;
+        objDiv? objDiv.scrollTop = objDiv.scrollHeight : null;
     } 
     
       
        
     const sendMessage = () => {
-        // socket.emit('message', {id: socket.id, msg: msgToSend, self: false, name: window.sessionStorage.getItem("name")});
-        // setMessages(messages? prevMessages => [...prevMessages, {id: socket.id, msg: msgToSend, self: true, name: window.sessionStorage.getItem("name")}] : {id: socket.id, msg: msgToSend, self: true, name: window.sessionStorage.getItem("name")});
-        setMsgToSend('')
+   setMsgToSend(" ")
         chatInput.current?.focus() 
         setTimeout(() => {
             scroller()

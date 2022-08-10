@@ -10,7 +10,7 @@ export const Contener = styled.div`
 export const Header = styled.div`
     width: 100vw;
     height: 20vh;
-    background: ${({theme}) => theme.body };
+    background: ${props => props.theme.colors.baseColor  };
 `
 export const Content = styled.div`
     width: 100vw;
@@ -22,7 +22,7 @@ export const ContentDisplay = styled.div`
     margin-left: 2.5vw;
     width: 80vw;
     height: 120vh;
-    background-color: ${({theme}) => theme.body_sec };
+    background-color: ${props => props.theme.colors.baseColor   };
 `
 export const FriendListDisplay = styled.div`
     width: 10wv;
@@ -32,5 +32,5 @@ export const FriendListDisplay = styled.div`
 export const Footer = styled.div`
     width: 100vw;
     height: 10vh;
-    background: ${({theme}) => theme.body };
+    background: ${props => props.theme.colors.baseColor  };
 `

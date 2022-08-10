@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import {langPl, langEn} from './utils/langs.js'
-import {LangContext} from './context/langContext.js'
+import {langPl, langEn} from './utils/langs'
+import {LangContext} from './context/langContext'
 import {ThemeProvider} from 'styled-components'
-import { lightTheme, darkTheme} from './styles/themes.js'
-import GlobalCSS from './styles/global.styled.js'
+import lightTheme from './styles/themeLight'
+import darkTheme from './styles/themeDark'
+import GlobalCSS from './styles/global.styled'
 import {Route, Routes } from "react-router-dom";
-import BaseLayout from './layouts/baseLayout.js';
+import BaseLayout from './layouts/baseLayout';
 import LoginPage from './pages/login'
 import RegisterPage from './pages/register'
 
