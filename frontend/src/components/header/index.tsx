@@ -1,16 +1,19 @@
 import React from 'react'
-import { HeaderBackground, HeaderWrapper } from './header.styled'
+import { HeaderContent, HeaderWrapper } from './style'
+import Timer from './timer'
+import InfoPanel from './InfoPanel'
+import TopBar from './topBar';
 
-type Props = {
-    children: JSX.Element
-};
 
-export const Header: React.FC<Props> = ({children} : Props) => {
+export const Header: React.FC = () => {
   return (
     <HeaderWrapper>
-            <HeaderBackground />
-            {children}
-        </HeaderWrapper>
+      <TopBar />
+      <HeaderContent>
+        <Timer/>
+        <InfoPanel/>
+      </HeaderContent>
+    </HeaderWrapper>
   )
 }
 

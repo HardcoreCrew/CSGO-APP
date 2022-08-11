@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import {Contener, Content, Footer, ContentDisplay, FriendListDisplay } from './baseLayout.styled'
+import {Contener, Content, Footer, ContentDisplay, FriendListDisplay, Header } from './baseLayout.styled'
 import {Route, Routes } from "react-router-dom";
 import FakePage from '../pages/fakePage';
 import ChatList from '../components/chat/chatList';
 import ChatBoxContainer from '../components/chat/chatBoxContainer';
-import Header from '../components/header'
+import HeaderContent from '../components/header'
+
+
 import PlayerHeaderPanel from '../components/header/playerPanel'
 import {userBaseData, userData} from '../db'
 
@@ -32,8 +34,7 @@ export default function BaseLayout() {
     return (
         <Contener>               
                 <Header>
-                    <PlayerHeaderPanel>
-                    </PlayerHeaderPanel>
+                    <HeaderContent/>
                 </Header>
 
                 <Content>
@@ -43,13 +44,13 @@ export default function BaseLayout() {
                         </Routes>
                     </ContentDisplay>
                     <FriendListDisplay>
-                        {loginState ? <ChatList {...loginState}/> : <></>}
+                        {loginState ? <ChatList {...loginState}/> : <> NO</>}
                     </FriendListDisplay>
                     <ChatBoxContainer />
                 </Content>
 
                 <Footer>
-                    
+                    aasdasdasd
                 </Footer>    
                 
         </Contener>

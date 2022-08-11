@@ -5,13 +5,12 @@ declare module 'styled-components' {
     name: string;
     colors: {
       body: string;
-        body_sec: string;
-        body_dark: string;
+        component_background: string;
         body_sec_light: string;
         body_sec_light_secondary: string;
         icons_base: string;
         color: string;
-        _colorFont: string;
+        fontColor: string;
         _lightBox: string;
         _lightBoxText: string;
         msgBody_standard: string;

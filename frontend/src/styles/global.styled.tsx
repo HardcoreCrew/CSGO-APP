@@ -1,10 +1,14 @@
 import { createGlobalStyle  } from 'styled-components';
 
 export default createGlobalStyle`
-body {            
-      background: ${props => props.theme.colors.body_dark };
-      color: ${props => props.theme.colors._lightBoxText };
+body {    
+      margin: auto;
+      padding: 0;        
+      background: ${props => props.theme.colors.body };
+      color: ${props => props.theme.colors.fontColor };
       margin: 0;
       font-family: 'Bebas Neue', cursive;
+      display: flex;
+      justify-content: center;
 }`;
 

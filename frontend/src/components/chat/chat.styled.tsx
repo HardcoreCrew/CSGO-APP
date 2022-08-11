@@ -13,7 +13,7 @@ export const ChatMsgContainer = styled.div<Props>`
     padding: 10px;
 `
 export const ChatMsgWrapper = styled.div<Props>`      
-    max-width: 90%;
+    min-width: 90%;
     padding: 5px;
     background-color: ${(props) => props.owner? props => props.theme.colors.baseColor: props => props.theme.colors.baseColor_active};
     padding-right: 10px;
@@ -87,8 +87,9 @@ export const ChatInput = styled.input`
 `
 
 export const ChatFriendList = styled.div`      
-    width: 280px;
+    width: 10vw;
     height: 70vh;
+    background-color: ${props => props.theme.colors.component_background};
     padding: 10px;
 `
 
