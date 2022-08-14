@@ -17,16 +17,15 @@ export default class RunCsGoServerLinuxHost {
     this._serverHostRepo = csGoServerHostRepo
     this._serverApiKeyRepo = csGoServerApiKeyRepo
     this._connector = sshConnector
-    this._srvStartTimeout = parseInt(settings.get('srvStartTimeout'))
+    this._settings = settings
+
+    this._sshStream = null
     this._serverRequest = null
     this._host = null
     this._apiKey = null
-    this._mapsRemaining = []
-    this._serverStarted = false
-    this._serverStartCheckRequired = true
-    this._lastMapChange = null
-    this._sshStream = null
     this._serverPort = null
+    this._serverStarted = false
+    this._mapsRemaining = []
     // TODO: add logger
   }
 
@@ -36,6 +35,7 @@ export default class RunCsGoServerLinuxHost {
     if (!request) {
       throw Error(`CS Go server request with id ${requestId} has not been found.`) // TODO: custom exceptions
     }
+    this._serverRequest = request
 
     const hosts = this._serverHostRepo.findByFreePorts({limit: 1})
     if (!hosts.length) {
@@ -61,7 +61,6 @@ export default class RunCsGoServerLinuxHost {
     this._updateApiKeyAndSave(true)
     // TODO: unit of work commit
 
-    this._serverRequest = request
     this._updateServerRequestAndSave({
       serverHost: this._host,
       serverPort: this._serverPort,
@@ -72,8 +71,6 @@ export default class RunCsGoServerLinuxHost {
     // TODO: unit of work commit
 
     this._mapsRemaining = cloneDeep(request.maps)
-    this._serverStarted = false
-    this._serverStartCheckRequired = true
     this._sshStream = null
 
     this._runSSHStream()
@@ -123,6 +120,10 @@ export default class RunCsGoServerLinuxHost {
   }
 
   _runSSHStream() {
+    const srvStartTimeout = parseInt(this._settings.get('srvStartTimeout'))
+    let serverStartCheckRequired = true
+    let lastMapChange = null
+
     this._connector.on('ready', () => {
       console.log('Client :: ready');
       this._connector.shell((err, stream) => {
@@ -132,31 +133,29 @@ export default class RunCsGoServerLinuxHost {
           console.log('stream :: close\n', { code });
         }).on('data', (data) => {
           const dataStr = data.toString()
-          if (this._serverStartCheckRequired) {
-          setTimeout(
-            this._terminateSessionIfServerNotStarted.bind(this), 
-            this._srvStartTimeout * 1000, 
-            this._srvStartTimeout,
-            );
+          if (serverStartCheckRequired) {
+            setTimeout(
+              this._terminateSessionIfServerNotStarted.bind(this), 
+              srvStartTimeout * 1000,
+              srvStartTimeout,
+              )
           }
           
           if (dataStr.includes('GC Connection established for server version')) {
             this._serverStarted = true
-            this._serverStartCheckRequired = false
+            serverStartCheckRequired = false
             console.log('Server started successfully.');
           }
 
           if (dataStr.includes('Going to intermission...')) {
             const lastMapChangeInterval = new Date(Date.now() - 180000)
-            if ((this._lastMapChange && this._lastMapChange <= lastMapChangeInterval) || 
-                !this._lastMapChange) {
-              this._lastMapChange = new Date()
-              if (!this._mapsRemaining.length) {
-                this._terminateSessionOnMatchEnd()
-              } else {
-              this._changeMap()
-              }}
+            if ((lastMapChange && lastMapChange <= lastMapChangeInterval) || 
+                !lastMapChange) {
+              lastMapChange = new Date()
+              this._changeMapOrEndMatch()
             }
+          }
+          
         }).on('exit', (code) => {
           console.log('stream :: exit\n', { code });
           this._connector.end()
@@ -203,22 +202,32 @@ export default class RunCsGoServerLinuxHost {
     this._mapsRemaining.shift()
   }
 
-  _terminateSessionIfServerNotStarted(seconds) {
-    if (!this._serverStarted) {
-      this._updateFailureServerRequest(
-        `The server has not started after ${seconds} seconds. Check the status manually.`
-      )
-      console.log('Exiting from the screen and disconnecting from the server...')
-      this._sendCmd('exit', 5000)
-      this._sendCmd('exit', 20000)
-  }}
-  
+  _terminateSessionIfServerNotStarted(srvStartTimeout) {
+    if (this._serverStarted) {
+      return
+  }
+    this._updateFailureServerRequest(
+      `The server has not started after ${srvStartTimeout} seconds. Check the status manually.`
+    )
+    console.log('Exiting from the screen and disconnecting from the server...')
+    this._sendCmd('exit', 5000)
+    this._sendCmd('exit', 20000)    
+  }
+
+  _changeMapOrEndMatch() {
+    if (!this._mapsRemaining.length) {
+      this._terminateSessionOnMatchEnd()
+    } else {
+    this._changeMap()
+    }
+  }
+
   _terminateSessionOnMatchEnd() {
     this._sendCmd('say The match has ended. The server is going to shut down.', 5000)
     this._sendCmd('exit', 15000)
     this._sendCmd('exit', 40000)
     this._sendCmd('exit', 50000)
-}
+  }
   
   _changeMap() {
     const nextMap = this._mapsRemaining[0].name

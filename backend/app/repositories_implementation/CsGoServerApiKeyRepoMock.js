@@ -19,14 +19,14 @@ export default class CsGoServerApiKeyRepoMock {
 
   findByNotInUseNowAndIsValid({limit}) {
     const settings = this._settings.get
-    if (this._areApiKeysAvailable) {
-        return [
-          new CsGoServerApiKey({
-            id: 1,
-            key: settings('srvApiKey1'),
-          }),
-        ]
+    if (!this._areApiKeysAvailable) {
+      return []
     }
-    return []
+    return [
+      new CsGoServerApiKey({
+        id: 1,
+        key: settings('srvApiKey1'),
+      }),
+    ]
   }
 }

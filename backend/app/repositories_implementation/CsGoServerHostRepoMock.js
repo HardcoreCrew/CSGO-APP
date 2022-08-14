@@ -21,28 +21,28 @@ export default class CsGoServerHostRepoMock {
 
   findByFreePorts({limit}) {
     const settings = this._settings.get
-    if (this._arePortsAvailable) {
-        return [
-          new CsGoServerHost({
-            id: 1,
-            name: 'vorczu-srv',
-            externalAddress: settings('srvExternalAddress'),
-            internalIpAddress: settings('srvInternalAddress'),
-            mgmtPort: parseInt(settings('srvMgmtPort')),
-            serverPorts: [
-              new CsGoServerPort({port: parseInt(settings('srvPort1')), inUseNow: true}), 
-              new CsGoServerPort({port: parseInt(settings('srvPort2')), inUseNow: true}), 
-              new CsGoServerPort({port: parseInt(settings('srvPort3'))}),
-            ],
-            credentials: new CsGoServerCredentials({
-              id: 1,
-              credentialsName: 'test-creds',
-              username: settings('srvUsername'),
-              password: settings('srvPassword'),
-            }),
-          }),
-        ]
+    if (!this._arePortsAvailable) {
+      return []
     }
-    return []
+    return [
+      new CsGoServerHost({
+        id: 1,
+        name: 'vorczu-srv',
+        externalAddress: settings('srvExternalAddress'),
+        internalIpAddress: settings('srvInternalAddress'),
+        mgmtPort: parseInt(settings('srvMgmtPort')),
+        serverPorts: [
+          new CsGoServerPort({port: parseInt(settings('srvPort1')), inUseNow: true}), 
+          new CsGoServerPort({port: parseInt(settings('srvPort2')), inUseNow: true}), 
+          new CsGoServerPort({port: parseInt(settings('srvPort3'))}),
+        ],
+        credentials: new CsGoServerCredentials({
+          id: 1,
+          credentialsName: 'test-creds',
+          username: settings('srvUsername'),
+          password: settings('srvPassword'),
+        }),
+      }),
+    ]
   }
 }
