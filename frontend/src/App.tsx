@@ -10,6 +10,7 @@ import {Route, Routes } from "react-router-dom";
 import BaseLayout from './layouts/baseLayout';
 import LoginPage from './pages/login'
 import RegisterPage from './pages/register'
+import AppSwitch from './components/shared/display/switch';
 
 
 
@@ -17,14 +18,17 @@ function App() {
 
   const [themeState, setThemeState] = useState('dark')
   const [languageState, setLanguageState] = useState('en')
+
   
   const handleTheme = () =>{
     themeState === 'light' ? setThemeState('dark') : setThemeState('light')
   }
   
-  const handleLanguage = () =>{
-    languageState === 'pl' ? setLanguageState('en') : setLanguageState('pl')
+  const handleLanguage = (e: boolean) =>{
+    e? setLanguageState('en') : setLanguageState('pl')
   } 
+
+ 
 
 
 
@@ -36,6 +40,7 @@ function App() {
     <GlobalCSS />
     
     <div className="App">
+      <AppSwitch switchInfo={e => handleLanguage(e)}/>
       <Routes>
           <Route path="/" element={<BaseLayout />} />
           <Route path="/login" element={<LoginPage />} />
