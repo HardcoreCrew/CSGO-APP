@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {Contener, Content, Footer, ContentDisplay, FriendListDisplay, Header } from './baseLayout.styled'
 import {Route, Routes } from "react-router-dom";
-import FakePage from '../pages/fakePage';
 import ChatList from '../components/chat/chatList';
 import ChatBoxContainer from '../components/chat/chatBoxContainer';
 import HeaderContent from '../components/header'
@@ -39,9 +38,7 @@ export default function BaseLayout() {
 
                 <Content>
                     <ContentDisplay>
-                        <Routes>
-                            <Route path="/fake" element={<FakePage />} />
-                        </Routes>
+                        
                     </ContentDisplay>
                     <FriendListDisplay>
                         {loginState ? <ChatList {...loginState}/> : <> NO</>}

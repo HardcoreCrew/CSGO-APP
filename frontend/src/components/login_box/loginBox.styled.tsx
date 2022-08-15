@@ -19,7 +19,7 @@ export const LoginBoxInputContainer = styled.div`
     border-radius: 15px;
     align-items: center;
     justify-content: space-evenly;
-    background-color: ${props => props.theme.colors.baseColor };
+    /* background-color: ${props => props.theme.colors.baseColor }; */
     box-shadow: black 5px 5px 30px;
 `
 

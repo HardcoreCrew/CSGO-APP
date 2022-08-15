@@ -1,28 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { RegConsoleWrapper } from './register_console/reg_console.styled'
-export default function Index() {
+import AppLabel  from '../shared/display/labels'
+import { AppInput } from '../shared/inputs/inputs.styled'
+import { CardInputContainer, CardWrapper } from '../shared/cards/login_register_card.styled'
+import React, { FC, useContext } from "react";
+import { AppLang } from '../../context/langContext';
 
-    // const sendLetters = (text, span_to_update) =>{
-    //     for (const t of text) {
-    //         console.log(t);
-    //     }
-    // }
+interface IProps {};
 
-    
+const Index:FC<IProps> = (props) => {
+    const langContext = useContext(AppLang);
 
-    // const consoleMock = [
-    //     'YD-League INIT...',
-    //     'YD-League Conecting...',
-    //     'Connection established !',
-    //     'Create new user...'
-    // ]
+    return <CardWrapper width={'600px'} >
+    <CardInputContainer inputDirection='column'>
+        <AppLabel textContent={langContext?.name} inputElement={<AppInput type='text' />} />
+        <AppLabel textContent="Nick" inputElement={<AppInput type='text' />} />
+        <AppLabel textContent="Nick" inputElement={<AppInput type='text' />} />
+        <AppLabel textContent="Nick" inputElement={<AppInput type='text' />} />
+    </CardInputContainer>
+   
+</CardWrapper>
+};
 
-    const [consoleContent, setConsoleContent] = useState([])
-    
-    return (
-        <RegConsoleWrapper >
-           {consoleContent.map(el => <>{el}<br/></>)}
-           
-        </RegConsoleWrapper>
-    )
-}
+export default Index;

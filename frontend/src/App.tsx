@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import {langPl, langEn} from './utils/langs'
-import {LangContext} from './context/langContext'
+import enLangContext from './lang/en'
+import plLangContext from './lang/pl'
+import {AppLang} from './context/langContext'
 import {ThemeProvider} from 'styled-components'
 import lightTheme from './styles/themeLight'
 import darkTheme from './styles/themeDark'
@@ -15,7 +16,7 @@ import RegisterPage from './pages/register'
 function App() {
 
   const [themeState, setThemeState] = useState('dark')
-  const [languageState, setLanguageState] = useState('pl')
+  const [languageState, setLanguageState] = useState('en')
   
   const handleTheme = () =>{
     themeState === 'light' ? setThemeState('dark') : setThemeState('light')
@@ -29,7 +30,7 @@ function App() {
 
   
   return ( 
-    <LangContext.Provider value={languageState ==='pl'? langPl : langEn}>
+    <AppLang.Provider value={languageState ==='pl'? plLangContext : enLangContext}>
     
     <ThemeProvider theme={themeState ==='light'? lightTheme : darkTheme}>
     <GlobalCSS />
@@ -44,7 +45,7 @@ function App() {
 
     </ThemeProvider> 
 
-    </LangContext.Provider>
+    </AppLang.Provider>
   );
 }
 
