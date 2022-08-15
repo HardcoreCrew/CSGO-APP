@@ -1,13 +1,9 @@
 import { Data } from "dataclass";
 
-class FormData extends Data {
+class FormData extends Data { 
     formName: string;
-    labels: [
-        {text: string}
-    ]
-    inputPlaceholders: [
-        {text: string}
-    ]
+    labels: any[];
+    placeholders: any[];
 }
   
 

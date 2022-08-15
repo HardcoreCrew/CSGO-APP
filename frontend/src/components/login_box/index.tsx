@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AppButton, AppButtonSecondary } from '../shared/buttons/buttons.styled'
 import { AppInput } from '../shared/inputs/inputs.styled'
@@ -7,14 +7,19 @@ import { FaTwitter, FaTwitch,FaYoutube } from 'react-icons/fa';
 import { IconCircleWrapper, IconCircleWrapperContainer } from '../shared/icons/iconsWrappers.styled'
 import { OrangeText } from '../../styles/layout.styled'
 import { CardInputContainer, CardWrapper } from '../shared/cards/login_register_card.styled'
+import { AppLang } from '../../context/langContext'
 
 
 export const Index: React.FC = () => {
+   const langContext = useContext(AppLang);
+
    return (
       <CardWrapper>         
       <CardInputContainer inputDirection={'column'}>
          <TitleLogin>
-         Witaj na stronie <OrangeText>YELLOW DUCK</OrangeText> GAME LEAGUE
+         {langContext?.forms.loginForm.labels[0].title[0]} 
+         <OrangeText>{langContext?.forms.loginForm.labels[0].title[1]} </OrangeText>
+         {langContext?.forms.loginForm.labels[0].title[2]} 
          </TitleLogin>
          <IconBox>                     
          <IconCircleWrapperContainer>
@@ -35,11 +40,17 @@ export const Index: React.FC = () => {
                </IconCircleWrapper>
             </IconCircleWrapperContainer>                  
          </IconBox>
-        <AppInput type='text' placeholder='Login...'/>
-        <AppInput type='password' placeholder='Hasło...'/>
-        <AppButtonSecondary>LOGOWANIE</AppButtonSecondary>
+        <AppInput type='text' placeholder={langContext?.forms.loginForm.placeholders[0]}/>
+        <AppInput type='password' placeholder={langContext?.forms.loginForm.placeholders[1]}/>
+        <AppButtonSecondary>
+         {langContext?.forms.loginForm.labels[1].loginBtn}
+         </AppButtonSecondary>
         <LoginRegisterLink>
-           Nie posiadasz konta? <Link to='/register'>Zarejestruj</Link> się!
+            <span>{langContext?.forms.loginForm.labels[2].registerText[0]} </span>
+            <Link to='/register'>
+               <span>{langContext?.forms.loginForm.labels[2].registerText[1]} </span>
+            </Link>
+            <span>{langContext?.forms.loginForm.labels[2].registerText[2]} </span>
         </LoginRegisterLink>
       </CardInputContainer>
    </CardWrapper>

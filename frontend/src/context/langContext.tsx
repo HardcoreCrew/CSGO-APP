@@ -1,11 +1,15 @@
 import { createContext } from "react";
-import FormsData from '../entities/DTO/forms'
+import FormData from '../entities/DTO/forms'
+import NavData from "../entities/DTO/navs";
 
 
 export interface AppLangContextInterface {
   name: string;
-  nav: any[]
-  forms: FormsData[]        
+  nav: NavData[];
+  forms: {
+    registerForm: FormData;
+    loginForm: FormData;
+  };  
   
 }
 
