@@ -1,33 +1,24 @@
 import {AppLangContextInterface} from '../context/langContext'
-import {FormsData, NavData} from '../entities/DTO' 
 
 const enLangContext: AppLangContextInterface = {
   name: "English",
-  nav: [
-        NavData.create({
-          navText: "Start",
-          navLink: "/"
-        }),
-        NavData.create({
-          navText: "Login",
-          navLink: "/Login"
-        }),
-        NavData.create({
-          navText: "Register",
-          navLink: "/Register"
-        })
-  ],
+  nav: {
+        startNav: { navText:"Start", navLink:"/"},
+        loginNav: { navText: "Login", navLink: "/login"},
+        registerNav: {navText: "Register", navLink: "/register"}
+      },
   forms: {
-    registerForm: FormsData.create({
+    registerForm: {
       formName: "Register_Form",
       labels: [
         {text: "Name"},
         {text: "Nick"},
         {text: "TEST1"},
         {text: "TEST2"},
-      ]
-    }),
-    loginForm: FormsData.create({
+      ],
+      placeholders: []
+    },
+    loginForm: {
       formName: "Login_Form",
       labels: [
         {title:[
@@ -46,7 +37,7 @@ const enLangContext: AppLangContextInterface = {
         "Login...",
         "Password..."          
       ]
-    })
+    }
   }
 };
 

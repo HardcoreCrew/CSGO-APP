@@ -1,6 +1,4 @@
-import { Data } from "dataclass";
-
-class FormData extends Data { 
+interface FormData { 
     formName: string;
     labels: any[];
     placeholders: any[];

@@ -5,7 +5,11 @@ import NavData from "../entities/DTO/navs";
 
 export interface AppLangContextInterface {
   name: string;
-  nav: NavData[];
+  nav: {
+    startNav: NavData;
+    loginNav: NavData;
+    registerNav: NavData;
+  };
   forms: {
     registerForm: FormData;
     loginForm: FormData;

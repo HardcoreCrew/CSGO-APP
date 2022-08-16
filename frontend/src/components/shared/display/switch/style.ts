@@ -14,6 +14,7 @@ export const SwitchWrapper = styled.label<Props>`
     display: flex;
     align-items: center;
     cursor: pointer;
+    z-index: 99;
     
     
     &::before{

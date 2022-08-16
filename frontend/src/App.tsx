@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import enLangContext from './lang/en'
 import plLangContext from './lang/pl'
 import {AppLang} from './context/langContext'
@@ -16,6 +16,13 @@ import AppSwitch from './components/shared/display/switch';
 
 function App() {
 
+  const langContext = useContext(AppLang);
+  
+
+
+
+  
+
   const [themeState, setThemeState] = useState('dark')
   const [languageState, setLanguageState] = useState('en')
 
@@ -26,7 +33,10 @@ function App() {
   
   const handleLanguage = (e: boolean) =>{
     e? setLanguageState('en') : setLanguageState('pl')
+    
   } 
+
+
 
  
 
@@ -40,10 +50,10 @@ function App() {
     <GlobalCSS />
     
     <div className="App">
-      <AppSwitch switchInfo={e => handleLanguage(e)}/>
+      <AppSwitch switchInfo={(info) => handleLanguage(info)}/>
       <Routes>
           <Route path="/" element={<BaseLayout />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path={"/login"} element={<LoginPage />} /> 
           <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </div>

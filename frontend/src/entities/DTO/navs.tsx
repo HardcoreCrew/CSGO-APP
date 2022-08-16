@@ -1,6 +1,5 @@
-import { Data } from "dataclass";
 
-class NavData extends Data {
+interface NavData{
     navText: string;
     navLink: string;
 }

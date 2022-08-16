@@ -13,6 +13,16 @@ import { AppLang } from '../../context/langContext'
 export const Index: React.FC = () => {
    const langContext = useContext(AppLang);
 
+   const [loginCreds, setLoginCreds] = useState({
+      login: '',
+      pw: ''
+   });
+
+   const loginHandler = () =>{
+      console.log(loginCreds);
+      
+   }
+
    return (
       <CardWrapper>         
       <CardInputContainer inputDirection={'column'}>
@@ -40,14 +50,24 @@ export const Index: React.FC = () => {
                </IconCircleWrapper>
             </IconCircleWrapperContainer>                  
          </IconBox>
-        <AppInput type='text' placeholder={langContext?.forms.loginForm.placeholders[0]}/>
-        <AppInput type='password' placeholder={langContext?.forms.loginForm.placeholders[1]}/>
-        <AppButtonSecondary>
+
+        <AppInput 
+            type='text' 
+            placeholder={langContext!.forms.loginForm.placeholders[0]} 
+            value={loginCreds.login} 
+            onChange={ e => setLoginCreds(prev => ({...prev, login : e.target.value}))}/>
+
+        <AppInput 
+            type='password' 
+            placeholder={langContext!.forms.loginForm.placeholders[1]}
+            onChange={ e => setLoginCreds(prev => ({...prev, pw : e.target.value}) )}/>
+
+        <AppButtonSecondary width='120px' onClick={loginHandler}>
          {langContext?.forms.loginForm.labels[1].loginBtn}
          </AppButtonSecondary>
         <LoginRegisterLink>
             <span>{langContext?.forms.loginForm.labels[2].registerText[0]} </span>
-            <Link to='/register'>
+            <Link to={langContext!.nav.registerNav.navLink}>
                <span>{langContext?.forms.loginForm.labels[2].registerText[1]} </span>
             </Link>
             <span>{langContext?.forms.loginForm.labels[2].registerText[2]} </span>
