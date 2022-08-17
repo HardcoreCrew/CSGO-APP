@@ -4,6 +4,7 @@ interface Props {
     width?: string;
     cardDirection?: string;
     inputDirection?: string;
+    itemsDirection?: string;
 }
 
 
@@ -22,7 +23,7 @@ export const CardInputContainer = styled.div<Props>`
     display: flex;
     flex-direction: ${props => props.inputDirection };
     border-radius: 15px;
-    align-items: center;
+    align-items: ${props => props.itemsDirection? props.itemsDirection : 'center'  };
     justify-content: space-evenly;
     background-color: ${props => props.theme.colors.body_sec_light };
     box-shadow: black 5px 5px 30px;

@@ -31,8 +31,9 @@ export const Index: React.FC = () => {
          <OrangeText>{langContext?.forms.loginForm.labels[0].title[1]} </OrangeText>
          {langContext?.forms.loginForm.labels[0].title[2]} 
          </TitleLogin>
+         {/* TO DO: Reduce code - use before and after pseudo elements  */}
          <IconBox>                     
-         <IconCircleWrapperContainer>
+             <IconCircleWrapperContainer> 
                <IconCircleWrapper>
                   <FaTwitter/>
                </IconCircleWrapper>
