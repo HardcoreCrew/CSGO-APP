@@ -10,18 +10,13 @@ const enLangContext: AppLangContextInterface = {
   forms: {
     registerForm: {
       formName: "Register_Form",
-      labels: [
-        {text: "Name"},
-        {text: "Nick"},
-        {text: "TEST1"},
-        {text: "TEST2"},
-      ],
+      labels: [],
       placeholders: [
-        "Nick",
-        "Steam ID",
-        "Login",
-        "Email",
-        "Password"
+        "Nick...",
+        "Steam ID...",
+        "Login...",
+        "Email...",
+        "Password..."
       ]
     },
     loginForm: {

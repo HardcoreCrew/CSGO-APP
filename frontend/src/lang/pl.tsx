@@ -11,14 +11,13 @@ const plLangContext: AppLangContextInterface = {
 forms: {
   registerForm: {
     formName: "Register_Form",
-    labels: [
-    ],
+    labels: [],
     placeholders: [
-      "Pseudonim",
-      "Steam ID",
-      "Login",
-      "Email",
-      "Hasło"
+      "Pseudonim...",
+      "Steam ID...",
+      "Login...",
+      "Email...",
+      "Hasło..."
     ]
   },
   loginForm: {
