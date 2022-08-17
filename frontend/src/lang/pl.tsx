@@ -12,12 +12,14 @@ forms: {
   registerForm: {
     formName: "Register_Form",
     labels: [
-      {text: "Name"},
-      {text: "Nick"},
-      {text: "TEST1"},
-      {text: "TEST2"},
     ],
-    placeholders: []
+    placeholders: [
+      "Pseudonim",
+      "Steam ID",
+      "Login",
+      "Email",
+      "Hasło"
+    ]
   },
   loginForm: {
     formName: "Login_Form",

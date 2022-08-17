@@ -19,16 +19,34 @@ const Index:FC<IProps> = (props) => {
                 </RegisterHeadBox>
 
                 <RegisterHeadBox>
-                    <AppInput type='text' placeholder='Nick' width='100px'/>
-                    <AppInput type='text' placeholder='SteamID' width='100px'/>
+                    <AppInput 
+                        type='text' 
+                        placeholder={langContext?.forms.registerForm.placeholders[0]} 
+                        width='100px'/>
+                    <AppInput 
+                        type='text' 
+                        placeholder={langContext?.forms.registerForm.placeholders[1]} 
+                        width='100px'/>
 
                 </RegisterHeadBox>
             </RegisterBoxHeader>
             <RegisterBoxForm>
-                <AppInput type='text' placeholder='Login' width='200px'/>
-                <AppInput type='text' placeholder='Mail' width='200px'/>
-                <AppInput type='text' placeholder='Hasło' width='200px'/>
-                <AppInput type='text' placeholder='Hasło' width='200px'/>
+                <AppInput 
+                    type='text' 
+                    placeholder={langContext?.forms.registerForm.placeholders[2]}  
+                    width='200px'/>
+                <AppInput 
+                    type='text' 
+                    placeholder={langContext?.forms.registerForm.placeholders[3]}  
+                    width='200px'/>
+                <AppInput 
+                    type='text' 
+                    placeholder={langContext?.forms.registerForm.placeholders[4]} 
+                    width='200px'/>
+                <AppInput 
+                    type='text' 
+                    placeholder={langContext?.forms.registerForm.placeholders[4]} 
+                    width='200px'/>
             </RegisterBoxForm>
             <AppButtonSecondary width='220px'> REJSESTRACJA</AppButtonSecondary>        
     </CardInputContainer>

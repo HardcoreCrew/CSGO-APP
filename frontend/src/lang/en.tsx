@@ -16,7 +16,13 @@ const enLangContext: AppLangContextInterface = {
         {text: "TEST1"},
         {text: "TEST2"},
       ],
-      placeholders: []
+      placeholders: [
+        "Nick",
+        "Steam ID",
+        "Login",
+        "Email",
+        "Password"
+      ]
     },
     loginForm: {
       formName: "Login_Form",
