@@ -8,10 +8,11 @@ import { IconCircleWrapper, IconCircleWrapperContainer } from '../shared/icons/i
 import { OrangeText } from '../../styles/layout.styled'
 import { CardInputContainer, CardWrapper } from '../shared/cards/login_register_card.styled'
 import { AppLang } from '../../context/langContext'
-
+import { useNavigate } from "react-router-dom";
 
 export const Index: React.FC = () => {
    const langContext = useContext(AppLang);
+   let navigate = useNavigate();
 
    const [loginCreds, setLoginCreds] = useState({
       login: '',
@@ -20,7 +21,7 @@ export const Index: React.FC = () => {
 
    const loginHandler = () =>{
       console.log(loginCreds);
-      
+      navigate('/');
    }
 
    return (
@@ -68,7 +69,7 @@ export const Index: React.FC = () => {
          </AppButtonSecondary>
         <LoginRegisterLink>
             <span>{langContext?.forms.loginForm.labels[2].registerText[0]} </span>
-            <Link to={langContext!.nav.registerNav.navLink}>
+            <Link to='/register'>
                <span>{langContext?.forms.loginForm.labels[2].registerText[1]} </span>
             </Link>
             <span>{langContext?.forms.loginForm.labels[2].registerText[2]} </span>

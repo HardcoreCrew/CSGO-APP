@@ -5,11 +5,19 @@ import React, { FC, useContext } from "react";
 import { AppLang } from '../../context/langContext';
 import { RegisterBoxAvatar, RegisterBoxForm, RegisterBoxHeader, RegisterHeadBox } from './register.styled';
 import { AppButton, AppButtonSecondary } from '../shared/buttons/buttons.styled';
+import { useNavigate } from "react-router-dom";
 
 interface IProps {};
 
 const Index:FC<IProps> = (props) => {
     const langContext = useContext(AppLang);
+    let navigate = useNavigate();
+
+    const handleReg = () =>{
+        //axios call
+        navigate('/login');
+    }
+    
 
     return <CardWrapper  >
     <CardInputContainer inputDirection='column' >      
@@ -48,7 +56,9 @@ const Index:FC<IProps> = (props) => {
                     placeholder={langContext?.forms.registerForm.placeholders[4]} 
                     width='200px'/>
             </RegisterBoxForm>
-            <AppButtonSecondary width='220px'> REJSESTRACJA</AppButtonSecondary>        
+            <AppButtonSecondary 
+                width='220px'
+                onClick={handleReg}> REJSESTRACJA</AppButtonSecondary>        
     </CardInputContainer>
    
 </CardWrapper>
