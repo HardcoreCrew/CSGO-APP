@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom'
 import { AppButton, AppButtonSecondary } from '../shared/buttons/buttons.styled'
 import { AppInput } from '../shared/inputs/inputs.styled'
 import { IconBox, LoginBoxInputContainer, LoginBoxWrapper, LoginRegisterLink, TitleLogin } from './loginBox.styled'
-import { FaTwitter, FaTwitch,FaYoutube } from 'react-icons/fa';
+import { FaTwitter, FaTwitch,FaDiscord } from 'react-icons/fa';
 import { IconCircleWrapper, IconCircleWrapperContainer } from '../shared/icons/iconsWrappers.styled'
 import { OrangeText } from '../../styles/layout.styled'
 import { CardInputContainer, CardWrapper } from '../shared/cards/login_register_card.styled'
 import { AppLang } from '../../context/langContext'
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 export const Index: React.FC = () => {
    const langContext = useContext(AppLang);
@@ -19,9 +20,12 @@ export const Index: React.FC = () => {
       pw: ''
    });
 
-   const loginHandler = () =>{
-      console.log(loginCreds);
-      navigate('/');
+   const loginHandler = async () =>{
+      const res = await axios.post('http://localhost:4001/users/login', loginCreds)
+      console.log(res.data);
+      
+      res.data.statusCode == 200 ? navigate("/") : console.log("Złe dane");
+      
    }
 
    return (
@@ -48,7 +52,7 @@ export const Index: React.FC = () => {
             
             <IconCircleWrapperContainer>
                <IconCircleWrapper>
-                  <FaYoutube/>
+                  <FaDiscord/>
                </IconCircleWrapper>
             </IconCircleWrapperContainer>                  
          </IconBox>

@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import enLangContext from './lang/en'
 import plLangContext from './lang/pl'
 import {AppLang} from './context/langContext'
+import { AppAuth } from './context/authContext';
 import {ThemeProvider} from 'styled-components'
 import lightTheme from './styles/themeLight'
 import darkTheme from './styles/themeDark'
@@ -17,12 +18,6 @@ import AppSwitch from './components/shared/display/switch';
 function App() {
 
   const langContext = useContext(AppLang);
-  
-
-
-
-  
-
   const [themeState, setThemeState] = useState('dark')
   const [languageState, setLanguageState] = useState('en')
 
@@ -44,11 +39,12 @@ function App() {
 
   
   return ( 
-    <AppLang.Provider value={languageState ==='pl'? plLangContext : enLangContext}>
-    
+    <AppLang.Provider value={languageState ==='pl'? plLangContext : enLangContext}>    
     <ThemeProvider theme={themeState ==='light'? lightTheme : darkTheme}>
+
+
     <GlobalCSS />
-    
+
     <div className="App">
       <AppSwitch switchInfo={(info) => handleLanguage(info)}/>
       <Routes>
@@ -58,8 +54,8 @@ function App() {
       </Routes>
     </div>
 
-    </ThemeProvider> 
 
+    </ThemeProvider> 
     </AppLang.Provider>
   );
 }

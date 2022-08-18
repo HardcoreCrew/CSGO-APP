@@ -2,6 +2,9 @@
 const darkTheme = {
     name: 'dark',
     colors: {
+        mainColor: '#151C2B',
+        mainColor_light: '#5B84AE',
+        mainColor_text: '#e2e2e2',
         body: '#080f1a',
         component_background: '#0d192b' ,
         body_sec_light: '#131a26' ,

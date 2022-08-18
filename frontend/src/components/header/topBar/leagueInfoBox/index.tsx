@@ -1,11 +1,19 @@
 import React, { FC } from "react";
-import { LeagueInfoBoxWrapper } from "./style";
+import { LeagueInfoBoxContentIco, LeagueInfoBoxContentText, LeagueInfoBoxWrapper } from "./style";
+import { FaTwitter, FaTwitch,FaDiscord } from 'react-icons/fa';
 
 interface IProps {};
 
 const Index:FC<IProps> = (props) => {
     return <LeagueInfoBoxWrapper>
-        LEAGUE INFO BOX
+        <LeagueInfoBoxContentText>
+            YD LEAGUE
+        </LeagueInfoBoxContentText>
+      <LeagueInfoBoxContentIco >
+        <FaDiscord />
+        <FaTwitter />
+        <FaTwitch />
+        </LeagueInfoBoxContentIco>
     </LeagueInfoBoxWrapper>
 };
 
