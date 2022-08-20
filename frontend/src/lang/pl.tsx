@@ -3,11 +3,13 @@ import {AppLangContextInterface} from '../context/langContext'
 
 const plLangContext: AppLangContextInterface = {
     name: "Polski",
-    nav: {
-      startNav: { navText:"Start", navLink:"/"},
-      loginNav: { navText: "Login", navLink: "/logowanie"},
-      registerNav: {navText: "Register", navLink: "/rejestracja"}
-    },
+    nav: [
+      { navText:"Start", navLink:"/"},
+      { navText: "O nas", navLink: "/about"},
+      {navText: "Inforacje", navLink: "/info"},
+      {navText: "Zespoły", navLink: "/teams"},
+      {navText: "Rejestracja", navLink: "/register"},
+    ],
 forms: {
   registerForm: {
     formName: "Register_Form",

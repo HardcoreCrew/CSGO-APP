@@ -6,7 +6,7 @@ interface Props {
 
 export const SwitchWrapper = styled.label<Props>`   
     position: absolute;
-    right: 0;
+    right: 300px;
     width: 80px;
     height: 28px;
     border-radius: 30px;

@@ -2,11 +2,13 @@ import {AppLangContextInterface} from '../context/langContext'
 
 const enLangContext: AppLangContextInterface = {
   name: "English",
-  nav: {
-        startNav: { navText:"Start", navLink:"/"},
-        loginNav: { navText: "Login", navLink: "/login"},
-        registerNav: {navText: "Register", navLink: "/register"}
-      },
+  nav:  [
+    { navText:"Home", navLink:"/"},
+    { navText: "About", navLink: "/about"},
+    {navText: "Info", navLink: "/info"},
+    {navText: "Teams", navLink: "/teams"},
+    {navText: "Register", navLink: "/register"},
+  ],
   forms: {
     registerForm: {
       formName: "Register_Form",

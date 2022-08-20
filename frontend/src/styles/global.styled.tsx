@@ -7,6 +7,8 @@ export default createGlobalStyle`
       src: url(../assets/fonts/RussoOne-Regular.ttf ) format(Example: 'truetype' or 'opentype' depending on the file extension of your font);
 }
 
+
+
 body {    
       margin: auto;
       padding: 0;        
@@ -17,6 +19,14 @@ body {
       display: flex;
       justify-content: center;
 
+      a{
+        text-decoration: none;
+        color: ${props => props.theme.colors.mainColor_text};
+        &:hover{
+        cursor: pointer;
+        color: ${props => props.theme.colors.mainColor_light}
+      }
+      
       
 }`;
 
