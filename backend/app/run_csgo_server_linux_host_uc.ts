@@ -4,7 +4,7 @@ import {
  } from "./cs_go_servers_management/dtos/index.js"
 import {
     RunCsGoServerLinuxHost,
- } from "./cs_go_servers_management/use_cases/index.js"
+ } from "./cs_go_servers_management/use_cases_implementation/index.js"
 import { 
     CsGoServerApiKeyRepoMock, 
     CsGoServerHostRepoMock, 
@@ -17,22 +17,22 @@ import {
 
 const settings = new DotEnvSettings()
 const csGoServerRequestRepo = new RunCsGoServerRequestRepoMock()
-const csGoServerHostRepo = new CsGoServerHostRepoMock({
+const csGoServerHostRepo = new CsGoServerHostRepoMock(
     settings,
-    arePortsAvailable: true,
-})
-const csGoServerApiKeyRepo = new CsGoServerApiKeyRepoMock({
+    true,
+)
+const csGoServerApiKeyRepo = new CsGoServerApiKeyRepoMock(
     settings,
-    areApiKeysAvailable: true,
-})
+    true,
+)
 const sshConnector = new Client()
-const runServer = new RunCsGoServerLinuxHost({
+const runServer = new RunCsGoServerLinuxHost(
     csGoServerRequestRepo,
     csGoServerHostRepo,
     csGoServerApiKeyRepo,
     sshConnector,
     settings,
-})
+)
 
-const inputDto = new RunCsGoServerLinuxHostInputDto({requestId: 1})
+const inputDto = RunCsGoServerLinuxHostInputDto.create({requestId: 1})
 runServer.execute({inputDto})
