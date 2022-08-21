@@ -1,1 +1,1 @@
-export { default as DotEnvSettings } from "./DotEnvSettings.js"
+export { default as DotEnvSettings } from "./DotEnvSettings"

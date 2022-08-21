@@ -1,3 +1,3 @@
-export { default as RunCsGoServerRequestRepoMock } from "./RunCsGoServerRequestRepoMock.js"
-export { default as CsGoServerHostRepoMock } from "./CsGoServerHostRepoMock.js"
-export { default as CsGoServerApiKeyRepoMock } from "./CsGoServerApiKeyRepoMock.js"
+export { default as RunCsGoServerRequestRepoMock } from "./RunCsGoServerRequestRepoMock"
+export { default as CsGoServerHostRepoMock } from "./CsGoServerHostRepoMock"
+export { default as CsGoServerApiKeyRepoMock } from "./CsGoServerApiKeyRepoMock"

@@ -1,1 +1,1 @@
-export { default as RunCsGoServerLinuxHostInputDto } from "./RunCsGoServerLinuxHostInputDto.js"
+export { default as RunCsGoServerLinuxHostInputDto } from "./RunCsGoServerLinuxHostInputDto"

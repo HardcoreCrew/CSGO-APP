@@ -1,12 +1,12 @@
 import { 
   JobState, 
   JobStatus, 
-} from "../value_objects/index.js"
-import CsGoMap from "./CsGoMap.js";
-import CsGoServerApiKey from "./CsGoServerApiKey.js";
-import CsGoServerHost from "./CsGoServerHost.js";
-import CsGoServerPort from "./CsGoServerPort.js";
-import GameLobby from "./GameLobby.js";
+} from "../value_objects"
+import CsGoMap from "./CsGoMap";
+import CsGoServerApiKey from "./CsGoServerApiKey";
+import CsGoServerHost from "./CsGoServerHost";
+import CsGoServerPort from "./CsGoServerPort";
+import GameLobby from "./GameLobby";
 
 
 export default class RunCsGoServerRequest {

@@ -1,6 +1,6 @@
 import { 
   CsGoServerApiKey,
- } from '../domain/entities/index.js'
+ } from '../domain/entities'
 
 
 export default interface ICsGoServerApiKeyRepo {

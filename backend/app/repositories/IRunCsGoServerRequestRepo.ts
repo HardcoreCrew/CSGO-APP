@@ -1,6 +1,6 @@
 import { 
   RunCsGoServerRequest, 
-} from '../domain/entities/index.js'
+} from '../domain/entities'
 
 
 export default interface IRunCsGoServerRequestRepo { 

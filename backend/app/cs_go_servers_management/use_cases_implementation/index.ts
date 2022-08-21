@@ -1,1 +1,1 @@
-export { default as RunCsGoServerLinuxHost } from "./RunCsGoServerLinuxHost.js"
+export { default as RunCsGoServerLinuxHost } from "./RunCsGoServerLinuxHost"

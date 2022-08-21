@@ -1,6 +1,6 @@
 import { 
   CsGoServerHost, 
- } from '../domain/entities/index.js'
+ } from '../domain/entities'
 
 
  export default interface ICsGoServerHostRepo {

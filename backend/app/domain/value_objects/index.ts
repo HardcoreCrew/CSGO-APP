@@ -1,2 +1,2 @@
-export { default as JobState } from "./JobState.js"
-export { default as JobStatus } from "./JobStatus.js"
+export { default as JobState } from "./JobState"
+export { default as JobStatus } from "./JobStatus"

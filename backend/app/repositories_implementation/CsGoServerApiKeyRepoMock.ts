@@ -1,10 +1,10 @@
 import { 
   CsGoServerApiKey,
- } from '../domain/entities/index.js'
+ } from '../domain/entities'
 import {
   ICsGoServerApiKeyRepo,
- } from '../repositories/index.js';
-import { ISettings } from '../settings/index.js';
+ } from '../repositories';
+import { ISettings } from '../settings';
 
 
 export default class CsGoServerApiKeyRepoMock implements ICsGoServerApiKeyRepo {

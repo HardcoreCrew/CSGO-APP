@@ -3,10 +3,10 @@ import {
   CsGoMap,
   GameLobby,
   User,
-} from '../domain/entities/index.js'
+} from '../domain/entities'
 import {
   IRunCsGoServerRequestRepo,
- } from '../repositories/index.js';
+ } from '../repositories';
 
 
 export default class RunCsGoServerRequestRepoMock implements IRunCsGoServerRequestRepo { 

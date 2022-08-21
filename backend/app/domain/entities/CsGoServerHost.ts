@@ -1,5 +1,5 @@
-import CsGoServerCredentials from "./CsGoServerCredentials.js";
-import CsGoServerPort from "./CsGoServerPort.js";
+import CsGoServerCredentials from "./CsGoServerCredentials";
+import CsGoServerPort from "./CsGoServerPort";
 
 
 export default class CsGoServerHost {

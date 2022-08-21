@@ -1,18 +1,18 @@
 import { Client } from 'ssh2'
 import { 
     RunCsGoServerLinuxHostInputDto,
- } from "./cs_go_servers_management/dtos/index.js"
+ } from "./cs_go_servers_management/dtos"
 import {
     RunCsGoServerLinuxHost,
- } from "./cs_go_servers_management/use_cases_implementation/index.js"
+ } from "./cs_go_servers_management/use_cases_implementation"
 import { 
     CsGoServerApiKeyRepoMock, 
     CsGoServerHostRepoMock, 
     RunCsGoServerRequestRepoMock,
- } from "./repositories_implementation/index.js"
+ } from "./repositories_implementation"
 import {
     DotEnvSettings,
-} from './settings_implementation/index.js'
+} from './settings_implementation'
 
 
 const settings = new DotEnvSettings()
@@ -34,5 +34,5 @@ const runServer = new RunCsGoServerLinuxHost(
     settings,
 )
 
-const inputDto = RunCsGoServerLinuxHostInputDto.create({requestId: 1})
+const inputDto = new RunCsGoServerLinuxHostInputDto(1)
 runServer.execute({inputDto})

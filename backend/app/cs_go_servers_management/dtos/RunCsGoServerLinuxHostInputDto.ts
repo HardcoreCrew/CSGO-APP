@@ -1,6 +1,5 @@
-import { Data } from "dataclass";
-
-
-export default class RunCsGoServerLinuxHostInputDto extends Data { 
-    requestId: number
-  }
+export default class RunCsGoServerLinuxHostInputDto {
+  constructor(
+    public requestId: number,
+  ) {}
+}

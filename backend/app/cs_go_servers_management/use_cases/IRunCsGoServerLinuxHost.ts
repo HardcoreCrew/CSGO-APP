@@ -1,4 +1,4 @@
-import { RunCsGoServerLinuxHostInputDto } from '../dtos/index.js'
+import { RunCsGoServerLinuxHostInputDto } from '../dtos'
 
 
 export default interface IRunCsGoServerLinuxHost {

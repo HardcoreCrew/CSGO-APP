@@ -1,34 +1,34 @@
-import lodash from 'lodash'
-const { cloneDeep } = lodash;
+import { cloneDeep } from 'lodash'
+// const { cloneDeep } = lodash;
 import { 
   CsGoMap,
   CsGoServerApiKey,
   CsGoServerHost,
   CsGoServerPort,
   RunCsGoServerRequest,
- } from '../../domain/entities/index.js'
+ } from '../../domain/entities'
 import { 
   JobState, 
   JobStatus,
- } from '../../domain/value_objects/index.js'
+ } from '../../domain/value_objects'
 import { 
   ICsGoServerApiKeyRepo,
   ICsGoServerHostRepo,
   IRunCsGoServerRequestRepo,
- } from '../../repositories/index.js'
-import { ISettings } from '../../settings/index.js'
-import { RunCsGoServerLinuxHostInputDto } from '../dtos/index.js'
-import { IRunCsGoServerLinuxHost } from '../use_cases/index.js'
+ } from '../../repositories'
+import { ISettings } from '../../settings'
+import { RunCsGoServerLinuxHostInputDto } from '../dtos'
+import { IRunCsGoServerLinuxHost } from '../use_cases'
 
 
 export default class RunCsGoServerLinuxHost implements IRunCsGoServerLinuxHost {
   private sshStream: any
-  private serverRequest: RunCsGoServerRequest
-  private host: CsGoServerHost
-  private apiKey: CsGoServerApiKey
-  private serverPort: CsGoServerPort
+  private serverRequest!: RunCsGoServerRequest
+  private host!: CsGoServerHost
+  private apiKey!: CsGoServerApiKey
+  private serverPort!: CsGoServerPort
   private serverStarted: boolean = false
-  private mapsRemaining: CsGoMap[]
+  private mapsRemaining: CsGoMap[] = []
   // TODO: add logger
 
   constructor(
@@ -82,19 +82,18 @@ export default class RunCsGoServerLinuxHost implements IRunCsGoServerLinuxHost {
     // TODO: unit of work commit
 
     this.mapsRemaining = cloneDeep(request.maps)
-    throw Error('doszlo kurwa')
     this.runSSHStream()
   }
 
   private updateApiKeyAndSave(inUseNow: boolean, lastUsed: Date | null = null): void {
     if (lastUsed) this.apiKey.lastUsed = lastUsed
     this.apiKey.inUseNow = inUseNow
-    this.serverApiKeyRepo.add({apiKey: this.apiKey})
+    this.serverApiKeyRepo.add({apiKey: this.apiKey!})
   }
 
   private updateServerPortAndSave(inUseNow: boolean): void {
     this.serverPort.inUseNow = inUseNow
-    this.serverHostRepo.add({host: this.host})
+    this.serverHostRepo.add({host: this.host!})
   }
 
   private updateFailureServerRequest(msg: string) {
@@ -129,7 +128,7 @@ export default class RunCsGoServerLinuxHost implements IRunCsGoServerLinuxHost {
   private runSSHStream() {
     const srvStartTimeout: number = parseInt(this.settings.get({setting: 'srvStartTimeout'}))
     let serverStartCheckRequired = true
-    let lastMapChange: Date | null = null
+    let lastMapChangeTime: Date | null = null
 
     this.connector.on('ready', () => {
       console.log('Client :: ready');
@@ -157,9 +156,9 @@ export default class RunCsGoServerLinuxHost implements IRunCsGoServerLinuxHost {
 
           if (dataStr.includes('Going to intermission...')) {
             const lastMapChangeInterval = new Date(Date.now() - 180000)
-            if ((lastMapChange && lastMapChange <= lastMapChangeInterval) || 
-                !lastMapChange) {
-              lastMapChange = new Date()
+            if ((lastMapChangeTime && lastMapChangeTime <= lastMapChangeInterval) || 
+                !lastMapChangeTime) {
+              lastMapChangeTime = new Date()
               this.changeMapOrEndMatch()
             }
           }

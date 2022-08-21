@@ -1,1 +1,1 @@
-export { default as IRunCsGoServerLinuxHost } from "./IRunCsGoServerLinuxHost.js"
+export { default as IRunCsGoServerLinuxHost } from "./IRunCsGoServerLinuxHost"

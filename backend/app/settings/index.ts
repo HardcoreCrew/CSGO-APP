@@ -1,1 +1,1 @@
-export { default as ISettings } from "./ISettings.js"
+export { default as ISettings } from "./ISettings"
