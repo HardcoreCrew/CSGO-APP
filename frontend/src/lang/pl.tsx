@@ -14,12 +14,20 @@ forms: {
   registerForm: {
     formName: "Register_Form",
     labels: [],
+   
     placeholders: [
       "Pseudonim...",
       "Steam ID...",
       "Login...",
       "Email...",
       "Hasło..."
+    ],
+    errors: [
+      "Pole zawiera spacje",
+      "Pole jest wymagane",
+      "Pole zawiera znaki specjalne",
+      "Błędny adres mailowy",
+      "Słabe hasło",
     ]
   },
   loginForm: {
@@ -40,6 +48,11 @@ forms: {
     placeholders: [
       "Login...",
       "Hasło..."          
+    ],
+    errors: [
+      "Pole zawiera spacje",
+      "Pole jest wymagane",
+      "Pole zawiera znaki specjalne"
     ]
   }
 }

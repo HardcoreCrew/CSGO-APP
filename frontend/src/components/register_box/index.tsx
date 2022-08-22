@@ -1,67 +1,106 @@
 import AppLabel  from '../shared/display/labels'
 import { AppInput } from '../shared/inputs/inputs.styled'
 import { CardInputContainer, CardWrapper } from '../shared/cards/login_register_card.styled'
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useReducer, useState } from "react";
 import { AppLang } from '../../context/langContext';
 import { RegisterBoxAvatar, RegisterBoxForm, RegisterBoxHeader, RegisterHeadBox } from './register.styled';
 import { AppButton, AppButtonSecondary } from '../shared/buttons/buttons.styled';
 import { useNavigate } from "react-router-dom";
+import InputField from '../shared/inputs/textField'
 
-interface IProps {};
+interface IUSerData {
+    nick: string | null;
+    twChanel: string | null;
+    login: string | null;
+    mail: string | null;
+    raidData: string | null;
+}
 
-const Index:FC<IProps> = (props) => {
+interface IUSerDataValid {
+    nick: boolean;
+    twChanel: boolean;
+    login: boolean;
+    mail: boolean;
+    raidData: boolean;
+}
+
+const Index:FC = (props) => {
     const langContext = useContext(AppLang);
     let navigate = useNavigate();
 
-    const handleReg = () =>{
-        //axios call
-        navigate('/login');
-    }
-    
+
+    const [userData, setUserData] = useState<IUSerData>({
+        nick: null,
+        twChanel: null,
+        login: null,
+        mail: null,
+        raidData: null,
+    });
+
+    const [userDataValid, setUserDataValid] = useState<IUSerDataValid>({
+        nick: true,
+        twChanel: true,
+        login: true,
+        mail: true,
+        raidData: true,
+    });
+
+
+
 
     return <CardWrapper  >
-    <CardInputContainer inputDirection='column' >      
-            <RegisterBoxHeader>
-                <RegisterHeadBox>
-                    <RegisterBoxAvatar />
-                </RegisterHeadBox>
+            <CardInputContainer inputDirection='column' >      
+                    <RegisterBoxHeader>
+                        <RegisterHeadBox>
+                            <RegisterBoxAvatar />
+                        </RegisterHeadBox>
 
-                <RegisterHeadBox>
-                    <AppInput 
-                        type='text' 
-                        placeholder={langContext?.forms.registerForm.placeholders[0]} 
-                        width='100px'/>
-                    <AppInput 
-                        type='text' 
-                        placeholder={langContext?.forms.registerForm.placeholders[1]} 
-                        width='100px'/>
+                        <RegisterHeadBox>
+                            <InputField 
+                                width='135px'
+                                inputName='nick'
+                                placeholder={langContext?.forms.registerForm.placeholders[0]} 
+                            />
 
-                </RegisterHeadBox>
-            </RegisterBoxHeader>
-            <RegisterBoxForm>
-                <AppInput 
-                    type='text' 
-                    placeholder={langContext?.forms.registerForm.placeholders[2]}  
-                    width='200px'/>
-                <AppInput 
-                    type='text' 
-                    placeholder={langContext?.forms.registerForm.placeholders[3]}  
-                    width='200px'/>
-                <AppInput 
-                    type='text' 
-                    placeholder={langContext?.forms.registerForm.placeholders[4]} 
-                    width='200px'/>
-                <AppInput 
-                    type='text' 
-                    placeholder={langContext?.forms.registerForm.placeholders[4]} 
-                    width='200px'/>
-            </RegisterBoxForm>
-            <AppButtonSecondary 
-                width='220px'
-                onClick={handleReg}> REJSESTRACJA</AppButtonSecondary>        
-    </CardInputContainer>
+                            <InputField 
+                                width='135px'
+                                inputName='tw'
+                                placeholder={langContext?.forms.registerForm.placeholders[1]} 
+                            />
+
+                        </RegisterHeadBox>
+
+                    </RegisterBoxHeader>
+                    <RegisterBoxForm>
+                        <InputField 
+                            width='250px'
+                            inputName='login'
+                            placeholder={langContext?.forms.registerForm.placeholders[2]} 
+                        />
+                        <InputField 
+                            width='250px'
+                            inputName='mail'
+                            placeholder={langContext?.forms.registerForm.placeholders[3]} 
+                        />
+                        <InputField 
+                            width='250px'
+                            inputName='password'
+                            inputType='password'
+                            placeholder={langContext?.forms.registerForm.placeholders[4]} 
+                        />
+                        <InputField 
+                            width='250px'
+                            inputName='password'
+                            inputType='password'
+                            placeholder={langContext?.forms.registerForm.placeholders[4]} 
+                        />
+                    </RegisterBoxForm>
+                    <AppButtonSecondary 
+                        width='320px'
+                        > REJSESTRACJA</AppButtonSecondary>        
+            </CardInputContainer>
    
-</CardWrapper>
+    </CardWrapper>
 };
 
 export default Index;

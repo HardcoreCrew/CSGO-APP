@@ -12,10 +12,15 @@ const enLangContext: AppLangContextInterface = {
   forms: {
     registerForm: {
       formName: "Register_Form",
+      errors: [
+        "Field contains whitespace",
+        "Field is required",
+        "Field contains special signs"
+      ],
       labels: [],
       placeholders: [
         "Nick...",
-        "Steam ID...",
+        "Twitch chanel...",
         "Login...",
         "Email...",
         "Password..."
@@ -26,8 +31,8 @@ const enLangContext: AppLangContextInterface = {
       labels: [
         {title:[
           "WELCOME ON",
-          "YELLOW DUCK",
-          "GAME LEAGUE",
+          "V BADGER",
+          "STREAM APP",
         ]},
         {loginBtn: "Login"},
         {registerText:[
@@ -39,6 +44,11 @@ const enLangContext: AppLangContextInterface = {
       placeholders: [
         "Login...",
         "Password..."          
+      ],
+      errors: [
+        "Pole zawiera spacje",
+        "Pole jest wymagane",
+        "Pole zawiera znaki specjalne"
       ]
     }
   }

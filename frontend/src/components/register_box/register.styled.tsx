@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 export const RegisterBoxHeader = styled.div`  
     width: 280px;
-    height: 150px;
+    padding: 10px;
     display: flex;
     flex-direction: row;
 `
@@ -28,11 +28,11 @@ export const RegisterBoxAvatar = styled.div`
 `
 
 export const RegisterBoxForm = styled.div` 
-    width: 100%;
-    height: 160px;
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: center;
     margin-bottom: 20px;
 `
 
@@ -42,7 +42,5 @@ export const RegisterHeadBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    input{
-        margin-bottom: 8px;
-    }
+    
 `

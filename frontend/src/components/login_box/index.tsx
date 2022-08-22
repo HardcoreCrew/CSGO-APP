@@ -10,6 +10,7 @@ import { CardInputContainer, CardWrapper } from '../shared/cards/login_register_
 import { AppLang } from '../../context/langContext'
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import InputField  from '../shared/inputs/textField'
 
 export const Index: React.FC = () => {
    const langContext = useContext(AppLang);
@@ -57,17 +58,17 @@ export const Index: React.FC = () => {
             </IconCircleWrapperContainer>                  
          </IconBox>
 
-        <AppInput 
-            type='text' 
-            placeholder={langContext!.forms.loginForm.placeholders[0]} 
-            value={loginCreds.login} 
-            onChange={ e => setLoginCreds(prev => ({...prev, login : e.target.value}))}/>
-
-        <AppInput 
-            type='password' 
-            placeholder={langContext!.forms.loginForm.placeholders[1]}
-            onChange={ e => setLoginCreds(prev => ({...prev, pw : e.target.value}) )}/>
-
+         <InputField 
+            width='250px'
+            inputName='base'
+            placeholder={langContext?.forms.registerForm.placeholders[2]} 
+         />
+         <InputField 
+            width='250px'
+            inputName='base'
+            inputType='password'
+            placeholder={langContext?.forms.registerForm.placeholders[4]} 
+         />
         <AppButtonSecondary width='120px' onClick={loginHandler}>
          {langContext?.forms.loginForm.labels[1].loginBtn}
          </AppButtonSecondary>
