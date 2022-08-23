@@ -14,7 +14,7 @@ export default class InitializeModels implements IInitializeModels {
     public execute(sequelize: Sequelize): void {
         const modelsDict: { [modelName: string]: typeof Model } = {}
         this.modelClasses.forEach(modelClass => {
-            modelsDict[modelClass.constructor.name] = modelClass;
+            modelsDict[modelClass.name] = modelClass;
           }
         )
         this.modelClasses.forEach(modelClass => {
@@ -23,7 +23,7 @@ export default class InitializeModels implements IInitializeModels {
         )
         this.modelClasses.forEach(modelClass => {
             if (!modelClass.initialize) {
-                throw Error(`Model class ${modelClass.constructor.name} has no static method 'initialize'.`)
+                throw Error(`Model class ${modelClass.name} has no static method 'initialize'.`)
             }
             modelClass.initialize(sequelize, DataTypes);
             }
