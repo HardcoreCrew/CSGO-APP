@@ -26,7 +26,7 @@ export default class CsGoServerApiKeyRepoMock implements ICsGoServerApiKeyRepo {
     return [
       new CsGoServerApiKey(
         1,
-        settings({setting: 'srvApiKey1'}),
+        settings('srvApiKey1'),
       ),
     ]
   }

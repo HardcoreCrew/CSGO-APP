@@ -1,4 +1,4 @@
 export default interface ISettings {
 
-  get({setting}: {setting: string}): string
+  get(setting: string): string
 }

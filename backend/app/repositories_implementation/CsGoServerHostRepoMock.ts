@@ -29,19 +29,19 @@ export default class CsGoServerHostRepoMock implements ICsGoServerHostRepo {
       new CsGoServerHost(
         1,
         'vorczu-srv',
-        settings({setting: 'srvExternalAddress'}),
-        settings({setting: 'srvInternalAddress'}),
-        parseInt(settings({setting: 'srvMgmtPort'})),
+        settings('srvExternalAddress'),
+        settings('srvInternalAddress'),
+        parseInt(settings('srvMgmtPort')),
         [
-          new CsGoServerPort(parseInt(settings({setting: 'srvPort1'})), true), 
-          new CsGoServerPort(parseInt(settings({setting: 'srvPort2'})), true), 
-          new CsGoServerPort(parseInt(settings({setting: 'srvPort3'}))),
+          new CsGoServerPort(parseInt(settings('srvPort1')), true), 
+          new CsGoServerPort(parseInt(settings('srvPort2')), true), 
+          new CsGoServerPort(parseInt(settings('srvPort3'))),
         ],
         new CsGoServerCredentials(
           1,
           'test-creds',
-          settings({setting: 'srvUsername'}),
-          settings({setting: 'srvPassword'}),
+          settings('srvUsername'),
+          settings('srvPassword'),
         ),
       ),
     ]

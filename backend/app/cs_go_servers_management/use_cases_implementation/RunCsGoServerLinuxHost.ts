@@ -1,5 +1,4 @@
 import { cloneDeep } from 'lodash'
-// const { cloneDeep } = lodash;
 import { 
   CsGoMap,
   CsGoServerApiKey,
@@ -126,7 +125,7 @@ export default class RunCsGoServerLinuxHost implements IRunCsGoServerLinuxHost {
   }
 
   private runSSHStream() {
-    const srvStartTimeout: number = parseInt(this.settings.get({setting: 'srvStartTimeout'}))
+    const srvStartTimeout: number = parseInt(this.settings.get('srvStartTimeout'))
     let serverStartCheckRequired = true
     let lastMapChangeTime: Date | null = null
 
