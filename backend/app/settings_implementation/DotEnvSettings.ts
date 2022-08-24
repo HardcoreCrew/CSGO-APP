@@ -20,9 +20,9 @@ Object.entries(process.env).forEach(([key, value]) => {
 
 export default class DotEnvSettings implements ISettings {
 
-  get({setting}: {setting: string}): string {
+  get(setting: string): string {
     const s = envWithCamelKeys[setting as keyof object]
-    if (!s) throw Error(`Setting ${setting} not found.`)
+    if (s === undefined) throw Error(`Setting ${setting} not found.`)
     return s
   }
 }
