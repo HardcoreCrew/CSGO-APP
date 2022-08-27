@@ -29,7 +29,7 @@ export const Index: React.FC = () => {
       error: string | null
    }
 
-   const  [isLoginValid, setIsLoginValid] = useState<LoginValid>({ isValid: false, error: 'asdasd' });
+   const  [isLoginValid, setIsLoginValid] = useState<LoginValid>({ isValid: true, error: '' });
 
    useEffect(() => {
       confirmRegister(loginCreds);
@@ -77,7 +77,7 @@ export const Index: React.FC = () => {
 
    return (
       <CardWrapper>       
-             { <Notification show={isLoginValid.isValid}> {isLoginValid.error === 'pw'? langContext?.forms.registerForm.errors[6] : isLoginValid.error} </Notification>}  
+             { <Notification width={'290px'} show={isLoginValid.isValid}> {isLoginValid.error === 'pw'? langContext?.forms.registerForm.errors[6] : isLoginValid.error} </Notification>}  
       <CardInputContainer inputDirection={'column'} height='400px'>
          <TitleLogin>
          {langContext?.forms.loginForm.labels[0].title[0]} 
