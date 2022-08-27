@@ -1,20 +1,24 @@
-import React, { FC, useState, useContext } from "react";
+import React, { FC, useState, useContext, ChangeEvent } from "react";
 import { AppLang } from "../../../../context/langContext";
 import { validateType } from "../../../../validations/formValidate";
-import { AppInputWrapper, AppTextInputError, AppTextInputField } from "../inputs.styled";
+import { AppInputWrapper,  AppTextInputField, ErrorToolTip } from "../inputs.styled";
 
 interface IProps {
     placeholder: string;
     inputType?: string;
     width?: string;
-    inputName: string | null;
+    inputName: string ;
+    inputData?: Function; 
+    onChange?: any;
+    tooltipOffset? : string | null;
 };
 
 const defaultProps: IProps = {
     placeholder: '',
     inputType: 'text',
     width: '150px',
-    inputName: ''
+    inputName: '',
+    tooltipOffset: '290px',
 }
 
 interface validationProps {
@@ -23,12 +27,13 @@ interface validationProps {
 }
 
 
-const Index:FC<IProps> = ({placeholder, inputType, width, inputName} : IProps)=> {
+
+const Index:FC<IProps> = ({placeholder, inputType, width, inputName, inputData, tooltipOffset} : IProps)=> {
         const langContext = useContext(AppLang);
 
         const [fieldValidation, setFieldValidation] = useState<validationProps>({
             isValid: true,
-            error: ''
+            error: '',
         });
 
         const validateHandler = (data: string) =>{
@@ -40,10 +45,12 @@ const Index:FC<IProps> = ({placeholder, inputType, width, inputName} : IProps)=>
         <AppTextInputField 
             type={inputType} 
             placeholder={placeholder} 
-            onBlur={(e) =>validateHandler(e.target.value)} />
-        <AppTextInputError>
-            {fieldValidation.error}
-        </AppTextInputError> 
+            onBlur={(e: any) =>validateHandler(e.target.value)} 
+            onChange={(event: ChangeEvent<HTMLInputElement>): void => inputData? inputData!({inputValue: event.target?.value, inputName: inputName}) : {}}
+            isValidStyle={!fieldValidation.isValid? 'active' : null}/>
+        <ErrorToolTip
+            isValidStyle={!fieldValidation.isValid? 'active' : null}
+            tooltipOffset={tooltipOffset}>{fieldValidation.error}</ErrorToolTip>
     </AppInputWrapper>
 };
 

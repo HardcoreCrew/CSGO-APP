@@ -25,13 +25,13 @@ export const Index: React.FC = () => {
       const res = await axios.post('http://localhost:4001/users/login', loginCreds)
       console.log(res.data);
       
-      res.data.statusCode == 200 ? navigate("/") : console.log("Złe dane");
+      res.data.statusCode === 200 ? navigate("/") : console.log("Złe dane");
       
    }
 
    return (
       <CardWrapper>         
-      <CardInputContainer inputDirection={'column'}>
+      <CardInputContainer inputDirection={'column'} height='400px'>
          <TitleLogin>
          {langContext?.forms.loginForm.labels[0].title[0]} 
          <OrangeText>{langContext?.forms.loginForm.labels[0].title[1]} </OrangeText>

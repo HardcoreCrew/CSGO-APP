@@ -44,3 +44,16 @@ export const RegisterHeadBox = styled.div`
     justify-content: flex-end;
     
 `
+
+export const RegisterErrorBox = styled.div`  
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    padding: 20px 30px;
+    top: -70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: #00000081;
+    
+`

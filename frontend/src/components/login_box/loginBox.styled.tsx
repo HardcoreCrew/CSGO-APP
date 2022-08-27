@@ -36,7 +36,7 @@ export const IconBox = styled.div`
     justify-content: space-between;
     width: 60%;
     background-color: #fff;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 `
 export const TitleLogin = styled.div`
     display: flex;
