@@ -29,7 +29,8 @@ forms: {
       "Błędny adres mailowy",
       "Słabe hasło",
       "Podany login już istnieje",
-      "Hasłą się nie zgadzają"
+      "Hasłą się nie zgadzają",
+      
     ]
   },
   loginForm: {
@@ -54,7 +55,8 @@ forms: {
     errors: [
       "Pole zawiera spacje",
       "Pole jest wymagane",
-      "Pole zawiera znaki specjalne"
+      "Pole zawiera znaki specjalne",
+      "Niepoprawny login lub hasło"
     ]
   }
 }

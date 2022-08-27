@@ -34,8 +34,6 @@ const Index:FC = (props) => {
 
     // {inputValue: '123123', inputName: 'tw', twChanel: ƒ}
     const handleFormData = (dataText:any) =>{  
-        
-           
         switch (dataText.inputName) {
             case 'nick':
                 setUserData(prev => {return {...prev, nick: dataText.inputValue}})

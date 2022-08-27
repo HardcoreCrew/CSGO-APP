@@ -11,6 +11,7 @@ import { AppLang } from '../../context/langContext'
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import InputField  from '../shared/inputs/textField'
+import Notification from '../shared/cards/notif_card'
 
 export const Index: React.FC = () => {
    const langContext = useContext(AppLang);
@@ -23,10 +24,22 @@ export const Index: React.FC = () => {
       pw: ''
    });
 
+   type LoginValid = {
+      isValid: boolean,
+      error: string | null
+   }
+
+   const  [isLoginValid, setIsLoginValid] = useState<LoginValid>({ isValid: true, error: '' });
+
    useEffect(() => {
       confirmRegister(loginCreds);
   }, [loginCreds]);
 
+
+  const handleNotif = (timeout : number) =>{  
+   setTimeout(() => {
+      setIsLoginValid({ isValid: true, error: '' });
+   }, timeout);}
 
   const confirmRegister = (userData:any) => {
       console.log(userData);
@@ -42,8 +55,8 @@ export const Index: React.FC = () => {
       const res = await axios.post('http://localhost:4001/users/login', loginCreds)
       console.log(res.data);
       
-      res.data.statusCode === 200 ? navigate("/") : console.log("Złe dane");
-      
+      res.data.statusCode === 200 ? navigate("/") : setIsLoginValid({isValid: false, error: langContext!.forms.loginForm.errors[3]})
+      handleNotif(3000)  
    }
 
    const handleFormData = (dataText:any) =>{  
@@ -63,7 +76,8 @@ export const Index: React.FC = () => {
   }
 
    return (
-      <CardWrapper>         
+      <CardWrapper>       
+             { <Notification show={isLoginValid.isValid}> {isLoginValid.error === 'pw'? langContext?.forms.registerForm.errors[6] : isLoginValid.error} </Notification>}  
       <CardInputContainer inputDirection={'column'} height='400px'>
          <TitleLogin>
          {langContext?.forms.loginForm.labels[0].title[0]} 

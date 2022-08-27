@@ -19,7 +19,8 @@ const enLangContext: AppLangContextInterface = {
         "Wrong mail adress",
         "Weak password (min 8 characters, 1 uppercase, 1 lowercase, 1 number)",
         "The given login already exists",
-        "Passwords do NOT match"
+        "Passwords do NOT match",
+
       ],
       labels: ["REGISTER"],
       placeholders: [
@@ -52,7 +53,8 @@ const enLangContext: AppLangContextInterface = {
       errors: [
         "Pole zawiera spacje",
         "Pole jest wymagane",
-        "Pole zawiera znaki specjalne"
+        "Pole zawiera znaki specjalne",
+        "Wrong login or password"
       ]
     }
   }
