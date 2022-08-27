@@ -86,6 +86,7 @@ const Index:FC = (props) => {
             console.log(res.data.statusCode);        
         }else{
             setRegisterValid(prev => {return {...prev, isValid: false, error: 'pw'}})
+            handleNotif(3000)  
         }
     }
 

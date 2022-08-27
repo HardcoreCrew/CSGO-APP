@@ -29,7 +29,7 @@ export const Index: React.FC = () => {
       error: string | null
    }
 
-   const  [isLoginValid, setIsLoginValid] = useState<LoginValid>({ isValid: true, error: '' });
+   const  [isLoginValid, setIsLoginValid] = useState<LoginValid>({ isValid: false, error: 'asdasd' });
 
    useEffect(() => {
       confirmRegister(loginCreds);
