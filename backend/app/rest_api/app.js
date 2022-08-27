@@ -10,7 +10,7 @@ dotenv.config()
 
 export default function createApp() {
     const url = process.env.API_BASE_URL || 'http://localhost:3000'
-    const port = process.env.API_PORT || 3000
+    const port = process.env.API_PORT || 3001
 
     const app = express()
     app.use(express.json())
