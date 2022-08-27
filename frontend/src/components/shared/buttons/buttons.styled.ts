@@ -28,4 +28,10 @@ export const AppButtonSecondary = styled(AppButton)`
     &:hover{
         background-color: ${props => props.theme.colors.baseColor_secondary_active};        
     }
+
+    &:disabled{
+        background-color: ${props => props.theme.colors.baseColor_secondary_disabled};
+        color: ${props => props.theme.colors.color_disabled};
+    }
+    
 `

@@ -2,7 +2,7 @@
 const lightTheme = {
     name: 'light',
     colors: {
-        mainColor: '#fff',
+        mainColor: '#151C2B',
         mainColor_light: '#5B84AE',
         mainColor_text: '#e2e2e2',
         body: '#080f1a',
@@ -11,6 +11,7 @@ const lightTheme = {
         body_sec_light_secondary: '#202d45' ,
         icons_base: '#999',
         color: 'white',
+        color_disabled: '#d3cfcf',
         fontColor: '#127edf',
         _lightBox: '#05131f',
         _lightBoxText: '#1c2d3d',
@@ -22,6 +23,7 @@ const lightTheme = {
         baseColor_secondary: '#ef841d',
         baseColor_secondary_50: 'rgba(240, 132, 30, 0.8)',
         baseColor_secondary_active: '#f5973e',
+        baseColor_secondary_disabled: '#584c41',
         baseInputBackground: 'hsl(216, 42%, 20%)',
         baseInputBackground_active: '#333',
         soft_blue: 'hsl(215, 51%, 70%)',
@@ -30,6 +32,7 @@ const lightTheme = {
         very_dark_blue_bg2: 'hsl(216, 42%, 20%)', //(main BG)
         very_dark_blue_cbg: 'hsl(216, 50%, 16%)', // (card BG)
         very_dark_blue_line: 'hsl(215, 32%, 27%)', // (line)
+        lel: '#fff'
     }
 }
 

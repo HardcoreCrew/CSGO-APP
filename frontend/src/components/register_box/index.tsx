@@ -1,6 +1,6 @@
 
 import { CardInputContainer, CardWrapper } from '../shared/cards/login_register_card.styled'
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { AppLang } from '../../context/langContext';
 import { RegisterBoxAvatar, RegisterBoxForm, RegisterBoxHeader,  RegisterHeadBox } from './register.styled';
 import { AppButtonSecondary } from '../shared/buttons/buttons.styled';
@@ -13,7 +13,9 @@ import Notification from '../shared/cards/notif_card'
 
 const Index:FC = (props) => {
     const langContext = useContext(AppLang);
-  
+
+
+    const [registerForm, setRegisterForm] = useState(true);
 
     const [registerValid, setRegisterValid] = useState({
         isValid: true,
@@ -32,7 +34,7 @@ const Index:FC = (props) => {
 
     // {inputValue: '123123', inputName: 'tw', twChanel: ƒ}
     const handleFormData = (dataText:any) =>{  
-        console.log(dataText);
+        
            
         switch (dataText.inputName) {
             case 'nick':
@@ -56,7 +58,7 @@ const Index:FC = (props) => {
                 break;
 
             case 'passwordSec':
-                setUserData(prev => {return {...prev, raidDataConf: dataText.inputValue}})
+                setUserData(prev => {return {...prev, raidDataConf: dataText.inputValue}})              
                 break;
         
             default:
@@ -64,11 +66,29 @@ const Index:FC = (props) => {
         }
     }
 
+    useEffect(() => {
+        confirmRegister(userData);
+    }, [userData]);
+
+
+    const confirmRegister = (userData:any) => {
+        let isOk = false
+        for (const property in userData) {            
+            if (userData[property] === '') {isOk = true }
+        }
+          setRegisterForm(isOk)
+    }
+
     const handleRegister = async () =>{
-        const res = await axios.post('http://localhost:4001/users',userData)  
-        setRegisterValid(prev => {return {...prev, isValid: res.data.statusCode === 409? false: true}})   
-        handleNotif(3000)  
-        console.log(res.data.statusCode);        
+
+        if(userData.raidData === userData.raidDataConf){    
+            const res = await axios.post('http://localhost:4001/users',userData)  
+            setRegisterValid(prev => {return {...prev, isValid: res.data.statusCode === 409? false: true, error: res.data.statusCode === 409? langContext!.forms.registerForm.errors[5]: ''}})
+            handleNotif(3000)  
+            console.log(res.data.statusCode);        
+        }else{
+            setRegisterValid(prev => {return {...prev, isValid: false, error: 'pw'}})
+        }
     }
 
     const handleNotif = (timeout : number) =>{  
@@ -80,7 +100,7 @@ const Index:FC = (props) => {
 
     return <CardWrapper cardDirection={'column'} >
             
-            { <Notification show={registerValid.isValid}> {langContext?.forms.registerForm.errors[5]} </Notification>}
+            { <Notification show={registerValid.isValid}> {registerValid.error === 'pw'? langContext?.forms.registerForm.errors[6] : registerValid.error} </Notification>}
 
            
 
@@ -135,15 +155,16 @@ const Index:FC = (props) => {
                             width='250px'
                             inputName='passwordSec'
                             inputType='password'
+                            inputData={handleFormData}
                             placeholder={langContext?.forms.registerForm.placeholders[4]} 
                         />
                     </RegisterBoxForm>
                     <AppButtonSecondary 
+                        disabled={registerForm}
                         onClick={handleRegister}
                         width='320px'
-                        > REGISTER</AppButtonSecondary>        
+                        > {langContext?.forms.registerForm.labels[0]} </AppButtonSecondary>        
             </CardInputContainer>
-   
     </CardWrapper>
 };
 

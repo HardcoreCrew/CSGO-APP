@@ -13,7 +13,7 @@ const plLangContext: AppLangContextInterface = {
 forms: {
   registerForm: {
     formName: "Register_Form",
-    labels: [],
+    labels: ["REJESTRACJA"],
    
     placeholders: [
       "Pseudonim...",
@@ -28,6 +28,8 @@ forms: {
       "Pole zawiera znaki specjalne",
       "Błędny adres mailowy",
       "Słabe hasło",
+      "Podany login już istnieje",
+      "Hasłą się nie zgadzają"
     ]
   },
   loginForm: {
@@ -35,8 +37,8 @@ forms: {
     labels: [
       {title:[
         "WITAJ NA",
-        "YELLOW DUCK",
-        "GAME LEAGUE",
+        "V BADGER",
+        "STREAM APP",
       ]},
       {loginBtn: "Logowanie"},
       {registerText:[

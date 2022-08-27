@@ -15,12 +15,16 @@ const enLangContext: AppLangContextInterface = {
       errors: [
         "Field contains whitespace",
         "Field is required",
-        "Field contains special signs"
+        "Field contains special signs (only letters)",
+        "Wrong mail adress",
+        "Weak password (min 8 characters, 1 uppercase, 1 lowercase, 1 number)",
+        "The given login already exists",
+        "Passwords do NOT match"
       ],
-      labels: [],
+      labels: ["REGISTER"],
       placeholders: [
         "Nick...",
-        "Twitch chanel...",
+        "Twitch channel...",
         "Login...",
         "Email...",
         "Password..."

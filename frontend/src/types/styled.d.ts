@@ -13,6 +13,7 @@ declare module 'styled-components' {
         body_sec_light_secondary: string;
         icons_base: string;
         color: string;
+        color_disabled: string;
         fontColor: string;
         _lightBox: string;
         _lightBoxText: string;
@@ -24,6 +25,7 @@ declare module 'styled-components' {
         baseColor_secondary: string;
         baseColor_secondary_50: string;
         baseColor_secondary_active: string;
+        baseColor_secondary_disabled: string;
         baseInputBackground: string;
         baseInputBackground_active: string;
         soft_blue: string;
