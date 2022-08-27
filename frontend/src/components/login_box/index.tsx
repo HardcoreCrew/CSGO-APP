@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AppButton, AppButtonSecondary } from '../shared/buttons/buttons.styled'
 import { AppInput } from '../shared/inputs/inputs.styled'
@@ -16,10 +16,27 @@ export const Index: React.FC = () => {
    const langContext = useContext(AppLang);
    let navigate = useNavigate();
 
+   const [loginForm, setLoginForm] = useState(true);
+
    const [loginCreds, setLoginCreds] = useState({
       login: '',
       pw: ''
    });
+
+   useEffect(() => {
+      confirmRegister(loginCreds);
+  }, [loginCreds]);
+
+
+  const confirmRegister = (userData:any) => {
+      console.log(userData);
+   
+      let isOk = false
+      for (const property in userData) {            
+          if (userData[property] === '') {isOk = true }
+      }
+      setLoginForm(isOk)
+  }
 
    const loginHandler = async () =>{
       const res = await axios.post('http://localhost:4001/users/login', loginCreds)
@@ -28,6 +45,22 @@ export const Index: React.FC = () => {
       res.data.statusCode === 200 ? navigate("/") : console.log("Złe dane");
       
    }
+
+   const handleFormData = (dataText:any) =>{  
+      switch (dataText.inputName) {
+          case 'login':
+            setLoginCreds(prev => {return {...prev, login: dataText.inputValue}})
+              break;
+
+          case 'pw':
+            setLoginCreds(prev => {return {...prev, pw: dataText.inputValue}})
+              break;
+
+       
+          default:
+              break;
+      }
+  }
 
    return (
       <CardWrapper>         
@@ -60,16 +93,18 @@ export const Index: React.FC = () => {
 
          <InputField 
             width='250px'
-            inputName='base'
+            inputName='login'
+            inputData={handleFormData}
             placeholder={langContext?.forms.registerForm.placeholders[2]} 
          />
          <InputField 
             width='250px'
-            inputName='base'
+            inputName='pw'
             inputType='password'
+            inputData={handleFormData}
             placeholder={langContext?.forms.registerForm.placeholders[4]} 
          />
-        <AppButtonSecondary width='120px' onClick={loginHandler}>
+        <AppButtonSecondary width='120px' onClick={loginHandler} disabled={loginForm}>
          {langContext?.forms.loginForm.labels[1].loginBtn}
          </AppButtonSecondary>
         <LoginRegisterLink>
