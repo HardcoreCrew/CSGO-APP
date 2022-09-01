@@ -1,7 +1,15 @@
-export default class User {
+import { Id } from "../simple_types";
+import IBaseEntity from "./IBaseEntity";
+
+export default class User implements IBaseEntity {
   constructor(
-    public id: number,
-    public name: string,
-    public level: number = 1,
+    public nickname: string,
+    public login: string,
+    public password: string,
+    public email: string,
+    public steamId: string,
+    public id: Id | null = null,
+    public createdAt: Date | null = null,
+    public updatedAt: Date | null = null,
   ) {}
 }

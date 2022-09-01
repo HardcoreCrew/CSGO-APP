@@ -2,10 +2,11 @@ import {
     Model,
     Sequelize,
 } from 'sequelize'
+import { Id } from '../../../domain'
 
 
 export default class UserModel extends Model {
-    declare id: number
+    declare id: Id
     declare nickname: string
     declare login: string
     declare password: string
@@ -16,7 +17,8 @@ export default class UserModel extends Model {
         UserModel.init({
             id: {
                 type: dataTypes.INTEGER,
-                primaryKey: true
+                primaryKey: true,
+                autoIncrement: true,
             },
             nickname: {
                 type: dataTypes.STRING,
