@@ -26,8 +26,8 @@ export default class RunCsGoServerRequestRepoMock implements IRunCsGoServerReque
         1,
         'lobby1',
         [
-          new User(1, 'player1'),
-          new User(2, 'player2'),
+          new User('player1', 'player1', 'password', 'player1', 'player1', 1),
+          new User('player2', 'player2', 'password', 'player2', 'player2', 2),
         ],
       ), 
       [
