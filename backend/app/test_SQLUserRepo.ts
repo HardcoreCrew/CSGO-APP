@@ -111,6 +111,6 @@ async function multipleTransactionsScenario(userRepo: IUserRepo, user: User) {
 
 
 const userRepo = getUserRepo()
-const user = new User('player1', 'player1', '123', 'player1@mail.com', 'steam-id1')
+const user = new User('player1', 'player1', 'player1@mail.com', 'steam-id1', '123')
 // oneTransactionScenario(userRepo, user) // uncomment to test
 multipleTransactionsScenario(userRepo, user) // only one of these scenario functions works at a time

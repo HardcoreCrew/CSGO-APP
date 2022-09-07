@@ -6,11 +6,15 @@ import {
 } from '../../../domain/entities'
 import { 
   Sequelize, 
+  UniqueConstraintError,
  } from 'sequelize';
 import { 
   SQLUserMapper,
  } from '../mappers';
 import { Id } from '../../../domain';
+import { 
+  ObjectAlreadyExists,
+ } from '../../../domain/errors';
 
 
 export default class SQLUserRepo implements IUserRepo {  // TODO: create SQLBaseMapper with protected storage, model, mapper props and basic protected methods
@@ -38,11 +42,18 @@ export default class SQLUserRepo implements IUserRepo {  // TODO: create SQLBase
       );
       return
     }
-    const newUser = await this.userModel.create(
-      this.mapper.entityToModel(user),
-      { transaction: this.storage.transaction },
-    );
-    user.id = newUser.id
+    try {
+      const newUser = await this.userModel.create(
+        this.mapper.entityToModel(user),
+        { transaction: this.storage.transaction },
+      );
+      user.id = newUser.id
+    } catch (e) {
+      if (e instanceof UniqueConstraintError) { 
+        throw new ObjectAlreadyExists('The user already exists.')
+      }
+      throw e
+    }
   }
 
   public async find(id: Id): Promise<User | null> {
