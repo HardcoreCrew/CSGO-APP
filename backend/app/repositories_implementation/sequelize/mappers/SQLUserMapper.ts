@@ -19,9 +19,9 @@ export default class SQLUserMapper extends SQLBaseEntityMapper{
       const args = [
         userModel.nickname,
         userModel.login,
-        userModel.password,
         userModel.email,
         userModel.steam_id,
+        userModel.password,
         userModel.id,
       ]
       return super._modelToEntity(userModel, User, args)
