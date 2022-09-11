@@ -1,3 +1,4 @@
+import { Email, SteamId } from './domain/value_objects'
 import { BcryptHasher } from './hasher_implementation'
 import { SQLUserMapper } from './repositories_implementation/sequelize/mappers'
 import { 
@@ -13,9 +14,6 @@ import {
 } from './settings_implementation'
 import { AddUserInputDto } from './users_management/dtos'
 import { AddUser } from './users_management/use_cases_implementation'
-import {
-    validateOrReject,
-} from 'class-validator'
 
 
 const models = [UserModel]
@@ -38,22 +36,14 @@ async function setTransaction() {
 async function runAddUserUC() {
     try {
         await setTransaction()
-
-        const inputDto = new AddUserInputDto()
-        inputDto.nickname = 'player1'
-        inputDto.login = 'player1'
-        inputDto.email = 'player1@mail.com'
-        inputDto.steamId = 'STEAM_1:0:123'
-        inputDto.password = '123'
-
-        validateOrReject(
-            inputDto, 
-            {forbidUnknownValues: true, whitelist: true, validationError: { target: false }})
-            .catch(errors => {
-            console.log('Input DTO validation errors: ', errors)
-            return
-          })
-
+        
+        const inputDto = new AddUserInputDto(
+            'player1',
+            'player1',
+            new Email('player1@mail.com'),
+            new SteamId('STEAM_1:0:123'),
+            '123',
+        )
         const outputDto = await addUser.execute(inputDto)
         console.log('User output', outputDto)
 
