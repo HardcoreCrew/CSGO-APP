@@ -1,4 +1,4 @@
-import controllers from './endpoints'
+import controllers from './endpoints/index.js'
 
 export default {
   openapi: "3.0.3",
