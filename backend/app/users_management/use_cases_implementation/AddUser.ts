@@ -20,8 +20,8 @@ export default class AddUser implements IAddUser {
       const user = new User(
         inputDto.nickname,
         inputDto.login,
-        inputDto.email.toString(),
-        inputDto.steamId.toString(),
+        inputDto.email,
+        inputDto.steamId,
         hashedPassword,
       )
 
@@ -33,7 +33,6 @@ export default class AddUser implements IAddUser {
         user.login,
         user.email,
         user.steamId,
-        'The user has been created.'
       )
     }
   }

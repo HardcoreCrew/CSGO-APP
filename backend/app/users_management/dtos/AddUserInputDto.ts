@@ -1,15 +1,26 @@
+ import {
+  IsEmail,
+  IsString,
+} from 'class-validator';
 import { 
-  Email, 
-  SteamId,
- } from "../../domain/value_objects";
+  IsSteamId, 
+} from "../../domain/validators";
 
 
 export default class AddUserInputDto {
-  constructor(
-    public nickname: string,
-    public login: string,
-    public email: Email,
-    public steamId: SteamId,
-    public password: string,
-  ) {}
+
+  @IsString()
+  public nickname!: string
+
+  @IsString()
+  public login!: string
+
+  @IsEmail()
+  public email!: string
+
+  @IsSteamId()
+  public steamId!: string
+
+  @IsString()
+  public password!: string
 }

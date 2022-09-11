@@ -1,4 +1,4 @@
-import v1Url from './v1_base_url.js'
+import v1Url from './v1_base_url'
 
 
 const BASE_URL = `${v1Url}/cs-go-servers`

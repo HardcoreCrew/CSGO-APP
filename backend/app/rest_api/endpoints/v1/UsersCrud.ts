@@ -1,7 +1,12 @@
 import { 
     doc,
     BASE_URL,
- } from './UsersCrudDoc.js'
+ } from './UsersCrudDoc'
+ import { 
+    Request, 
+    Response, 
+    Router,
+} from 'express'
 
 
 const usersMock = Array.from({length: 20}, (_, i) => {
@@ -21,14 +26,17 @@ class UsersCrud {
         return doc
     }
 
-    registerMethods(router) {
+    registerMethods(router: Router) {
         router.get(BASE_URL, this.getAllUsers)
     }
 
-    getAllUsers(req, res) {
+    getAllUsers(req: Request, res: Response) {
         const { ids } = req.query
         if (!ids) {
             return res.status(200).json(usersMock)
+        }
+        if (typeof ids !== "string") {
+            return res.status(400).json({Error: "Query param 'ids' has to be of type string"})
         }
 
         const idsArray = ids.split(',').map(id => parseInt(id))

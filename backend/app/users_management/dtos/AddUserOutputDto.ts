@@ -8,6 +8,5 @@ export default class AddUserOutputDto {
     public login: string,
     public email: string,
     public steamId: string,
-    public message: string,
   ) {}
 }
