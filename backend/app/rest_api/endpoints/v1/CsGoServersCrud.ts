@@ -1,7 +1,12 @@
 import { 
     doc, 
     BASE_URL,
- } from './CsGoServersCrudDoc.js'
+ } from './CsGoServersCrudDoc'
+ import { 
+    Request, 
+    Response, 
+    Router,
+} from 'express'
 
 
 let idCounter = 0
@@ -13,11 +18,11 @@ class CsGoServersCrud {
         return doc
     }
 
-    registerMethods(router) {
+    registerMethods(router: Router) {
         router.post(BASE_URL, this.addServerRequest)
     }
 
-    addServerRequest(req, res) {
+    addServerRequest(req: Request, res: Response) {
         const { lobby_id, maps } = req.body
 
         let undefinedFields = []
@@ -45,7 +50,7 @@ class CsGoServersCrud {
         if (lobby_id === 2) {
             return res.status(400).json({Error: `Lobby with id ${lobby_id} is inactive. Open a new lobby.`})
         }
-        const unknownMap = maps.find(el => el === 'deck16')
+        const unknownMap = maps.find((el: string) => el === 'deck16')
         if (unknownMap) {
             return res.status(400).json({Error: `Map ${unknownMap} has not been found.`})
         }
