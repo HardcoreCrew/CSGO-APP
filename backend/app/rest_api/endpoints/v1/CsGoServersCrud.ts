@@ -12,11 +12,8 @@ import {
 let idCounter = 0
 
 
-class CsGoServersCrud {
-
-    get doc() {
-        return doc
-    }
+export default class CsGoServersCrud {
+    static doc = doc
 
     registerMethods(router: Router) {
         router.post(BASE_URL, this.addServerRequest)
@@ -59,5 +56,3 @@ class CsGoServersCrud {
         res.status(202).json({id: idCounter, lobby_id, maps, state: 'IN_PROGRESS', status: 'UNDETERMINED'})
     }
 }
-
-export default new CsGoServersCrud()

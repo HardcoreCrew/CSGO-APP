@@ -1,3 +1,4 @@
+import { singleton, injectable, injectAll } from "tsyringe"
 import { 
     Sequelize, 
     DataTypes,
@@ -6,9 +7,11 @@ import {
 import IInitializeModels from './IInitializeModels';
 
 
+@singleton()
+@injectable()
 export default class InitializeModels implements IInitializeModels {
     constructor(
-        private modelClasses: any[] 
+        @injectAll("ISequelizeModelType") private modelClasses: any[] 
     ) {}
 
     public execute(sequelize: Sequelize): void {

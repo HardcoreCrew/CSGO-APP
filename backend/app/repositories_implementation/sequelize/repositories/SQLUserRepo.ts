@@ -1,3 +1,4 @@
+import { injectable, inject } from "tsyringe"
 import {
   IUserRepo,
 } from '../../../repositories';
@@ -15,20 +16,18 @@ import { Id } from '../../../domain';
 import { 
   ObjectAlreadyExists,
  } from '../../../domain/errors';
+import { SequelizeStorage } from "../../../sequelize_db_connector";
 
 
+ @injectable()
 export default class SQLUserRepo implements IUserRepo {  // TODO: create SQLBaseMapper with protected storage, model, mapper props and basic protected methods
-  private storage: any
   private userModel: any
-  private mapper: SQLUserMapper
   constructor(
-    sequelize: Sequelize,
-    storage: any,
-    mapper: SQLUserMapper,
+    @inject("ISequelize") sequelize: Sequelize,
+    private mapper: SQLUserMapper,
+    private storage: SequelizeStorage,
   ) {
-    this.storage = storage
     this.userModel = sequelize.models.UserModel
-    this.mapper = mapper
   }
 
   public async add(user: User): Promise<void> {

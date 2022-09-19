@@ -1,3 +1,4 @@
+import InvalidRequestDoc from './InvalidRequestDoc'
 import v1Url from './v1_base_url'
 
 
@@ -60,21 +61,7 @@ const doc = {
                     description: "CS GO server request accepted",
                     content: outputContent
                 },
-                400: {
-                    description: "Invalid request",
-                    content: {
-                        "application/json": {
-                            schema: {
-                                type: "object",
-                                properties: {
-                                    Error: {
-                                        type: "string"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                ...InvalidRequestDoc,
             }
         }
     }
