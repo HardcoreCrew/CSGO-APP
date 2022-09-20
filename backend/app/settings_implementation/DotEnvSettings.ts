@@ -1,3 +1,4 @@
+import { singleton } from "tsyringe"
 import * as dotenv from 'dotenv'
 import * as path from 'path'
 import { ISettings } from '../settings'
@@ -18,6 +19,7 @@ Object.entries(process.env).forEach(([key, value]) => {
 });
 
 
+@singleton()
 export default class DotEnvSettings implements ISettings {
 
   get(setting: string): string {

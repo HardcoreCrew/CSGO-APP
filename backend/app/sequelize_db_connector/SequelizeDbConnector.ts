@@ -1,14 +1,17 @@
+import { singleton, injectable, inject } from "tsyringe"
 import { Sequelize } from 'sequelize'
 import { ISettings } from '../settings'
 import IInitializeModels from './IInitializeModels'
 
 
+@singleton()
+@injectable()
 export default class SequelizeDbConnector {
     private _sequelize: Sequelize
   
     constructor(
-      private settings: ISettings,
-      private initializeModelsUc: IInitializeModels,
+        @inject("ISettings") private settings: ISettings,
+        @inject("IInitializeModels") private initializeModelsUc: IInitializeModels,
     ) {
         const getSetting = this.settings.get
         const dbString = this.getDbString(getSetting)

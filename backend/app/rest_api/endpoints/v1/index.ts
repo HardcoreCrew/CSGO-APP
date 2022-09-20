@@ -1,7 +1,13 @@
+import { DependencyContainer } from 'tsyringe'
 import cSGoServersCrudController from './CsGoServersCrud'
-import usersCrudController from './UsersCrud'
+import UsersCrud from './UsersCrud'
 
 export default [
     cSGoServersCrudController,
-    usersCrudController,
+    UsersCrud,
 ]
+
+
+export function v1EndpointsProvider(container: DependencyContainer): void {
+    container.register("IRegistrableEndpoint", {useClass: UsersCrud})
+}

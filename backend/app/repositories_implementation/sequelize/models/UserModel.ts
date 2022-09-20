@@ -3,9 +3,10 @@ import {
     Sequelize,
 } from 'sequelize'
 import { Id } from '../../../domain'
+import { ISequelizeModelType } from '../../../sequelize_db_connector'
 
 
-export default class UserModel extends Model {
+export default class UserModel extends Model implements ISequelizeModelType {
     declare id: Id
     declare nickname: string
     declare login: string

@@ -1,3 +1,4 @@
+import { injectable, inject } from "tsyringe"
 import { User } from "../../domain/entities"
 import { IHasher } from "../../hasher"
 import { IUserRepo } from "../../repositories"
@@ -8,11 +9,12 @@ import {
 import { IAddUser } from "../use_cases"
 
 
+@injectable()
 export default class AddUser implements IAddUser {
   
     constructor(
-      private userRepo: IUserRepo,
-      private hasher: IHasher,
+      @inject("IUserRepo") private userRepo: IUserRepo,
+      @inject("IHasher") private hasher: IHasher,
     ) {}
   
     public async execute(inputDto: AddUserInputDto): Promise<AddUserOutputDto> { 
@@ -20,8 +22,8 @@ export default class AddUser implements IAddUser {
       const user = new User(
         inputDto.nickname,
         inputDto.login,
-        inputDto.email.toString(),
-        inputDto.steamId.toString(),
+        inputDto.email,
+        inputDto.steamId,
         hashedPassword,
       )
 
@@ -33,7 +35,6 @@ export default class AddUser implements IAddUser {
         user.login,
         user.email,
         user.steamId,
-        'The user has been created.'
       )
     }
   }
