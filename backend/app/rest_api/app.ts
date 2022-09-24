@@ -8,7 +8,7 @@ import {
     Response, 
     NextFunction, 
 } from 'express'
-import swaggerBaseDoc from './swagger_base_doc'
+import SwaggerDocs from './SwaggerDocs'
 import { 
     sequelizeDbConnectorProvider,
     SequelizeStorage,
@@ -22,6 +22,7 @@ import {
 } from './endpoints'
 import settingsProvider from '../settings_implementation'
 import { repositoriesProvider } from '../repositories_implementation'
+import { queriesProvider } from '../queries_implementation'
 import { usersManagementProvider } from '../users_management'
 
 
@@ -39,19 +40,21 @@ export default function createApp() {
     app.use('/api', router)
 
     const settings: ISettings = container.resolve('ISettings')
-    const url = settings.get('apiBaseUrl') || 'http://localhost:3000'
-    const port = settings.get('apiPort') || 3001
-    swaggerBaseDoc.servers[0].url = `${url}/api`
-    app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerBaseDoc))
+    const port: string = settings.get('apiPort') || '3001'
+
+    const swaggerDocs = container.resolve(SwaggerDocs)
+    app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs.doc))
 
     return { app, port }
 }
 
 
 const setupDependencyInjection = () => {
+    container.register(SwaggerDocs, {useClass: SwaggerDocs})
     settingsProvider(container)
     sequelizeDbConnectorProvider(container)
     repositoriesProvider(container)
+    queriesProvider(container)
     hasherProvider(container)
     usersManagementProvider(container)
     endpointsProvider(container)

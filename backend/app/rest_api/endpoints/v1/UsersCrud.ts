@@ -8,9 +8,12 @@ import {
     Response, 
     Router,
 } from 'express'
-import { AddUserInputDto } from '../../../users_management/dtos'
 import { 
-    plainToClass,
+    AddUserInputDto, 
+    GetAllUsersInputDto, 
+} from '../../../users_management/dtos'
+import {
+    plainToInstance,
     instanceToPlain, 
 } from 'class-transformer'
 import { validateOrReject } from 'class-validator'
@@ -19,66 +22,64 @@ import IRegistrableEndpoint from "../IRegistrableEndpoint"
 import { 
     ObjectAlreadyExists,
 } from "../../../domain/errors"
-
-
-const usersMock = Array.from({length: 20}, (_, i) => {
-    return {
-    id: i+1, 
-    avatar_link: `https://avatar-${i+1}.com`, 
-    nick: `player-${i+1}`, 
-    clan_tag: `clan-${i+1}`, 
-    account_level: i+2
-    }
-})
+import { 
+    IGetAllUsersQuery,
+} from "../../../users_management/queries"
+import { Id } from "../../../domain"
 
 
 @injectable()
 export default class UsersCrud implements IRegistrableEndpoint {
-    static doc = doc
-
     constructor(
         @inject("IAddUser") private addUserUC: IAddUser,
+        @inject("IGetAllUsersQuery") private getAllUsersQuery: IGetAllUsersQuery,
       ) {}
+
+    get doc(): any {
+        return doc
+    }
 
     public registerMethods(router: Router): void {
         router.get(BASE_URL, (req, res) => this.getAllUsers(req, res))
         router.post(BASE_URL, (req, res) => this.addUser(req, res))
     }
 
-    public getAllUsers(req: Request, res: Response) {
-        const { ids } = req.query
-        if (!ids) {
-            return res.status(200).json(usersMock)
+    public async getAllUsers(req: Request, res: Response) {
+        const query: { 
+            page: string | number, 
+            rows: string| number,
+            ids: string | Id | any,
+        } = Object.create(req.query)
+        if (query.page) {
+            query.page = parseInt(query.page as string)
         }
-        if (typeof ids !== "string") {
-            return res.status(400).json({errors: ["Query param 'ids' has to be of type string"]})
+        if (query.rows) {
+            query.rows = parseInt(query.rows as string)
+        }
+        if (query.ids) {
+            query.ids = query.ids.split(',').map((id: string) => parseInt(id))
         }
 
-        const idsArray = ids.split(',').map(id => parseInt(id))
-        if (idsArray.includes(NaN)) {
-            return res.status(400).json({errors: ['Ids are not integers']})
+        const inputDto = plainToInstance(GetAllUsersInputDto, query)
+        const errors: string[] = await this.validateRequest(inputDto)
+        if (errors.length) {
+            return res.status(400).json({errors: errors})
         }
 
-        let foundUsers = usersMock.filter(user => idsArray.includes(user.id))
-        res.status(200).json(foundUsers)
+        try {
+            const outputDto = await this.getAllUsersQuery.get(inputDto)
+            return res.status(200).json(instanceToPlain(outputDto))
+        } catch(e: any) {
+            return res.status(500).json({errors: [e.message]})
+        }
     }
 
     public async addUser(req: Request, res: Response) {
-        const inputDto = plainToClass(AddUserInputDto, req.body)
-        try {
-            await validateOrReject(inputDto, 
-                {
-                    forbidUnknownValues: true, 
-                    whitelist: true, 
-                    validationError: { target: false },
-                }
-            )
-        } catch(errors: any) {
-            const errorMsg: any = []
-            errors.map((error: { constraints: any }) => 
-                Object.values(error.constraints).forEach(value => errorMsg.push(value)))
-            return res.status(400).json({errors: errorMsg})
-            }
+        const inputDto = plainToInstance(AddUserInputDto, req.body)
+        const errors: string[] = await this.validateRequest(inputDto)
+        if (errors.length) {
+            return res.status(400).json({errors: errors})
+        }
         
         try {
             const outputDto = await this.addUserUC.execute(inputDto)
@@ -89,5 +90,23 @@ export default class UsersCrud implements IRegistrableEndpoint {
               }
               return res.status(500).json({errors: [e.message]})
         }
+    }
+
+    private async validateRequest(inputDto: any): Promise<string[]> {
+        try {
+            await validateOrReject(inputDto, 
+                {
+                    forbidUnknownValues: true, 
+                    whitelist: true, 
+                    validationError: { target: false },
+                }
+            )
+        } catch(errors: any) {
+            const errorMessages = [] as string[]
+            errors.map((error: { constraints: any }) => 
+                Object.values(error.constraints).forEach(value => errorMessages.push(value as string)))
+            return errorMessages
+            }
+        return []
     }
 }

@@ -1,4 +1,7 @@
-import InvalidRequestDoc from './InvalidRequestDoc'
+import { 
+    InvalidRequestResponse, 
+    PagingParameters, 
+} from '../shared_swagger_docs'
 import v1Url from './v1_base_url'
 
 
@@ -87,6 +90,7 @@ const doc = {
             description: "Get users with optional query parameters",
             operationId: "getAllUsers",
             parameters: [
+                ...PagingParameters,
                 {
                     name: "ids",
                     in: "query",
@@ -98,14 +102,14 @@ const doc = {
                       }
                     },
                     style: "simple"
-                  }
+                }
             ],
             responses: {
                 200: {
                     description: "OK",
                     content: getOutputContent,
                 },
-                ...InvalidRequestDoc,
+                ...InvalidRequestResponse,
             }
         },
         post: {
@@ -118,7 +122,7 @@ const doc = {
                     description: "User created",
                     content: postOutputContent,
                 },
-                ...InvalidRequestDoc,
+                ...InvalidRequestResponse,
             }
         },
     }

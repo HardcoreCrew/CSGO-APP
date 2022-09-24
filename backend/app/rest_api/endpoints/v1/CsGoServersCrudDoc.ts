@@ -1,4 +1,6 @@
-import InvalidRequestDoc from './InvalidRequestDoc'
+import { 
+    InvalidRequestResponse, 
+} from '../shared_swagger_docs'
 import v1Url from './v1_base_url'
 
 
@@ -61,7 +63,7 @@ const doc = {
                     description: "CS GO server request accepted",
                     content: outputContent
                 },
-                ...InvalidRequestDoc,
+                ...InvalidRequestResponse,
             }
         }
     }

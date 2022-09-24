@@ -1,10 +1,8 @@
 export { default as IRegistrableEndpoint } from "./IRegistrableEndpoint"
 import { DependencyContainer } from "tsyringe"
-import v1Controllers, { v1EndpointsProvider } from './v1'
-
-export default [
-    ...v1Controllers,
-]
+import { 
+    v1EndpointsProvider, 
+} from './v1'
 
 
 export function endpointsProvider(container: DependencyContainer): void {
