@@ -6,12 +6,12 @@ import {
   
   export default class BaseGetResourceListQueryInputDto {
   
-    @IsInt()
     @Min(1)
+    @IsInt()
     public page: number
   
-    @IsInt()
     @Min(1)
+    @IsInt()
     public rows: number
 
     constructor(

@@ -26,6 +26,9 @@ import {
     IGetAllUsersQuery,
 } from "../../../users_management/queries"
 import { Id } from "../../../domain"
+import { 
+    IProblemDetailsFactory, 
+} from "../../error_responses"
 
 
 @injectable()
@@ -33,6 +36,7 @@ export default class UsersCrud implements IRegistrableEndpoint {
     constructor(
         @inject("IAddUser") private addUserUC: IAddUser,
         @inject("IGetAllUsersQuery") private getAllUsersQuery: IGetAllUsersQuery,
+        @inject("IProblemDetailsFactory") private errorsFactory: IProblemDetailsFactory,
       ) {}
 
     get doc(): any {
@@ -61,24 +65,26 @@ export default class UsersCrud implements IRegistrableEndpoint {
         }
 
         const inputDto = plainToInstance(GetAllUsersInputDto, query)
-        const errors: string[] = await this.validateRequest(inputDto)
-        if (errors.length) {
-            return res.status(400).json({errors: errors})
+        const errorObject = await this.validateRequest(inputDto)
+        if (Object.keys(errorObject).length) {
+            return res.status(400).json(this.errorsFactory.getValidationError(errorObject))
         }
 
         try {
             const outputDto = await this.getAllUsersQuery.get(inputDto)
             return res.status(200).json(instanceToPlain(outputDto))
         } catch(e: any) {
-            return res.status(500).json({errors: [e.message]})
+            return res.status(500).json(
+                this.errorsFactory.getInternalServerError({detail: e.message})
+                )
         }
     }
 
     public async addUser(req: Request, res: Response) {
         const inputDto = plainToInstance(AddUserInputDto, req.body)
-        const errors: string[] = await this.validateRequest(inputDto)
-        if (errors.length) {
-            return res.status(400).json({errors: errors})
+        const errorObject = await this.validateRequest(inputDto)
+        if (Object.keys(errorObject).length) {
+            return res.status(400).json(this.errorsFactory.getValidationError(errorObject))
         }
         
         try {
@@ -86,27 +92,33 @@ export default class UsersCrud implements IRegistrableEndpoint {
             return res.status(200).json(instanceToPlain(outputDto))
         } catch(e: any) {
             if (e instanceof ObjectAlreadyExists) { 
-                return res.status(400).json({errors: [e.message]})
+                return res.status(400).json(
+                    this.errorsFactory.getCustomError({title: e.message})
+                )
               }
-              return res.status(500).json({errors: [e.message]})
+            return res.status(500).json(
+                this.errorsFactory.getInternalServerError({detail: e.message})
+                )
         }
     }
 
-    private async validateRequest(inputDto: any): Promise<string[]> {
+    private async validateRequest(inputDto: any): Promise<any> {
         try {
             await validateOrReject(inputDto, 
                 {
                     forbidUnknownValues: true, 
                     whitelist: true, 
                     validationError: { target: false },
+                    stopAtFirstError: true,
                 }
             )
         } catch(errors: any) {
-            const errorMessages = [] as string[]
-            errors.map((error: { constraints: any }) => 
-                Object.values(error.constraints).forEach(value => errorMessages.push(value as string)))
-            return errorMessages
+            const errorObject: any = {}
+            errors.forEach((error: { property: string; constraints: any }) => {
+                errorObject[error.property] = Object.values(error.constraints)[0]
+            })
+            return errorObject
             }
-        return []
+        return {}
     }
 }
