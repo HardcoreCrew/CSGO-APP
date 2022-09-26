@@ -24,6 +24,7 @@ import settingsProvider from '../settings_implementation'
 import { repositoriesProvider } from '../repositories_implementation'
 import { queriesProvider } from '../queries_implementation'
 import { usersManagementProvider } from '../users_management'
+import { errorResponsesProvider } from './error_responses'
 
 
 export default function createApp() {    
@@ -58,6 +59,7 @@ const setupDependencyInjection = () => {
     hasherProvider(container)
     usersManagementProvider(container)
     endpointsProvider(container)
+    errorResponsesProvider(container)
 }
 
 
