@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import {Contener, Content, Footer, ContentDisplay, FriendListDisplay, Header } from './baseLayout.styled'
 import {Route, Routes } from "react-router-dom";
-import ChatList from '../components/chat/chatList';
-import ChatBoxContainer from '../components/chat/chatBoxContainer';
 import HeaderContent from '../components/header'
 
 
 import PlayerHeaderPanel from '../components/header/playerPanel'
-import {userBaseData, userData} from '../db'
+import {userBaseData, userData} from '../db/index.js'
 
 
 export default function BaseLayout() {
@@ -41,9 +39,9 @@ export default function BaseLayout() {
                         
                     </ContentDisplay>
                     <FriendListDisplay>
-                        {loginState ? <ChatList {...loginState}/> : <> NO</>}
+                        
                     </FriendListDisplay>
-                    <ChatBoxContainer />
+
                 </Content>
 
                 <Footer>
