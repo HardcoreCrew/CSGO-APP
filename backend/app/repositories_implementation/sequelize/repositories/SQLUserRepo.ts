@@ -48,8 +48,10 @@ export default class SQLUserRepo implements IUserRepo {  // TODO: create SQLBase
       );
       user.id = newUser.id
     } catch (e) {
-      if (e instanceof UniqueConstraintError) { 
-        throw new ObjectAlreadyExists('The user already exists.')
+      if (e instanceof UniqueConstraintError) {
+        const msg = (e.fields as unknown as string[]).includes('steam_id') ? 
+        'User with this steam id already exists.' : 'The user already exists.'
+        throw new ObjectAlreadyExists(msg)
       }
       throw e
     }

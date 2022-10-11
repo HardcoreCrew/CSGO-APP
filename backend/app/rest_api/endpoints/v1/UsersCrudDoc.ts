@@ -1,5 +1,6 @@
+import { cloneDeep } from 'lodash'
 import { 
-    InvalidRequestResponse, 
+    baseGetAllResourcesBadRequest,
     PagingParameters, 
 } from '../shared_swagger_docs'
 import v1Url from './v1_base_url'
@@ -45,10 +46,6 @@ const postInputContent = {
                     type: "string",
                     required: true,
                 },
-                login: {
-                    type: "string",
-                    required: true,
-                },
                 email: {
                     type: "string",
                     required: true,
@@ -60,6 +57,35 @@ const postInputContent = {
                 password: {
                     type: "string",
                     required: true,
+                },
+            }
+        }
+    }
+}
+const getAllResourcesBadRequest: any = cloneDeep(baseGetAllResourcesBadRequest)
+getAllResourcesBadRequest[400].content['application/json'].schema.properties.ids = {
+    type: "string",
+}
+
+const postBadRequestContent = {
+    "application/json": {
+        schema: {
+            type: "object",
+            properties: {
+                title: {
+                    type: "string",
+                },
+                nickname: {
+                    type: "string",
+                },
+                email: {
+                    type: "string",
+                },
+                steamId: {
+                    type: "string",
+                },
+                password: {
+                    type: "string",
                 },
             }
         }
@@ -109,7 +135,7 @@ const doc = {
                     description: "OK",
                     content: getOutputContent,
                 },
-                ...InvalidRequestResponse,
+                ...getAllResourcesBadRequest,
             }
         },
         post: {
@@ -122,7 +148,10 @@ const doc = {
                     description: "User created",
                     content: postOutputContent,
                 },
-                ...InvalidRequestResponse,
+                400: {
+                    description: "Bad request",
+                    content: postBadRequestContent,
+                },
             }
         },
     }

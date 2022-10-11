@@ -9,7 +9,6 @@ import { ISequelizeModelType } from '../../../sequelize_db_connector'
 export default class UserModel extends Model implements ISequelizeModelType {
     declare id: Id
     declare nickname: string
-    declare login: string
     declare password: string
     declare email: string
     declare steam_id: string
@@ -23,11 +22,6 @@ export default class UserModel extends Model implements ISequelizeModelType {
             },
             nickname: {
                 type: dataTypes.STRING,
-                allowNull: false,
-            },
-            login: {
-                type: dataTypes.STRING,
-                unique: true,
                 allowNull: false,
             },
             password: {

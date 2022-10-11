@@ -8,7 +8,6 @@ export default class SQLUserMapper extends SQLBaseEntityMapper{
     public entityToModel(user: User): Object {
       return {
         nickname: user.nickname,
-        login: user.login,
         password: user.password,
         email: user.email,
         steam_id: user.steamId,
@@ -18,7 +17,6 @@ export default class SQLUserMapper extends SQLBaseEntityMapper{
     public modelToEntity(userModel: UserModel): User {
       const args = [
         userModel.nickname,
-        userModel.login,
         userModel.email,
         userModel.steam_id,
         userModel.password,

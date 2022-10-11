@@ -49,7 +49,6 @@ export default class SQLGetAllUsersQuery implements IGetAllUsersQuery {
     return new SingleUserOutputDto(
       model.id,
       model.nickname,
-      model.login,
       model.email,
       model.steam_id,
     )

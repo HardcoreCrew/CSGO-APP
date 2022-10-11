@@ -3,11 +3,9 @@ import {
   IsString,
   IsNotEmpty,
   IsAlpha,
-  IsAlphanumeric,
   Length,
 } from 'class-validator'
 import { 
-  IsNotNumericString,
   IsSteamId,
   IsStrongPassword, 
 } from "../../domain/validators"
@@ -20,13 +18,6 @@ export default class AddUserInputDto {
   @IsString()
   @IsNotEmpty()
   public nickname!: string
-
-  @IsNotNumericString()
-  @Length(4, 20)
-  @IsAlphanumeric()
-  @IsString()
-  @IsNotEmpty()
-  public login!: string
 
   @IsEmail()
   @IsNotEmpty()
