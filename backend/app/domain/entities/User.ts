@@ -4,7 +4,6 @@ import IBaseEntity from "./IBaseEntity";
 export default class User implements IBaseEntity {
   constructor(
     public nickname: string,
-    public login: string,
     public email: string,
     public steamId: string,
     public password: string,

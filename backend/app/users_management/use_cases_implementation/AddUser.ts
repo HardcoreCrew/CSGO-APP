@@ -21,7 +21,6 @@ export default class AddUser implements IAddUser {
       const hashedPassword = await this.hasher.hash(inputDto.password)
       const user = new User(
         inputDto.nickname,
-        inputDto.login,
         inputDto.email,
         inputDto.steamId,
         hashedPassword,
@@ -32,7 +31,6 @@ export default class AddUser implements IAddUser {
       return new AddUserOutputDto(
         user.id!,
         user.nickname,
-        user.login,
         user.email,
         user.steamId,
       )
