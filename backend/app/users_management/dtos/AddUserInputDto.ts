@@ -1,5 +1,4 @@
 import {
-  IsEmail,
   IsString,
   IsNotEmpty,
   IsAlpha,
@@ -9,19 +8,16 @@ import {
   IsSteamId,
   IsStrongPassword, 
 } from "../../domain/validators"
+import BaseUserInputDto from './BaseUserInputDto'
 
 
-export default class AddUserInputDto {
+export default class AddUserInputDto extends BaseUserInputDto {
 
   @Length(4, 12)
   @IsAlpha()
   @IsString()
   @IsNotEmpty()
   public nickname!: string
-
-  @IsEmail()
-  @IsNotEmpty()
-  public email!: string
 
   @IsSteamId()
   @IsNotEmpty()
@@ -30,5 +26,5 @@ export default class AddUserInputDto {
   @IsStrongPassword()
   @IsString()
   @IsNotEmpty()
-  public password!: string
+  declare public password: string
 }

@@ -1,6 +1,7 @@
 export { 
     ApplicationBaseError,
     InvalidRequest,
+    MissingData,
  } from "./base_errors"
 
 export {

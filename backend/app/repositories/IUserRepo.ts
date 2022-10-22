@@ -10,5 +10,7 @@ export default interface IUserRepo {
 
   find(id: Id): Promise<User | null>
 
+  findByEmail(email: string): Promise<User | null>
+
   delete(user: User): Promise<void> 
 }

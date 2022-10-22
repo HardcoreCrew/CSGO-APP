@@ -31,7 +31,7 @@ export default class SQLUserRepo implements IUserRepo {  // TODO: create SQLBase
   }
 
   public async add(user: User): Promise<void> {
-    if (user.id) {
+    if (user.id) {  // TODO: handle error if user doesn't exist in db 
       await this.userModel.update(
         this.mapper.entityToModel(user),
         {
@@ -59,6 +59,16 @@ export default class SQLUserRepo implements IUserRepo {  // TODO: create SQLBase
 
   public async find(id: Id): Promise<User | null> {
     const user = await this.userModel.findByPk(id, { transaction: this.storage.transaction })
+    return user ? this.mapper.modelToEntity(user) : null
+  }
+
+  public async findByEmail(email: string): Promise<User | null> {
+    const user = await this.userModel.findOne(
+      {
+        where: { email: email },
+        transaction: this.storage.transaction
+      }
+    )
     return user ? this.mapper.modelToEntity(user) : null
   }
 
