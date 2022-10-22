@@ -1,4 +1,5 @@
 import { injectable, inject } from "tsyringe"
+import * as jwt from "jsonwebtoken"
 import { 
     doc,
     BASE_URL,
@@ -35,11 +36,13 @@ import { Id } from "../../../domain"
 import { 
     IProblemDetailsFactory, 
 } from "../../error_responses"
+import { ISettings } from "../../../settings"
 
 
 @injectable()
 export default class UsersCrud implements IRegistrableEndpoint {
     constructor(
+        @inject("ISettings") private settings: ISettings,
         @inject("IAddUser") private addUserUC: IAddUser,
         @inject("IVerifyUserPassword") private verifyUserPasswordUC: IVerifyUserPassword,
         @inject("IGetAllUsersQuery") private getAllUsersQuery: IGetAllUsersQuery,
@@ -119,7 +122,15 @@ export default class UsersCrud implements IRegistrableEndpoint {
         
         try {
             const outputDto = await this.verifyUserPasswordUC.execute(inputDto)
-            return res.status(200).json(instanceToPlain(outputDto))
+            if (!outputDto.isPasswordMatch) return res.status(401).json()
+
+            const token: string = this.getJWT(inputDto.email)
+            res.cookie('Access-Token', token, {
+                httpOnly: true,
+                secure: this.settings.get('envName') === 'PROD',
+                sameSite: 'strict',
+              })
+              .status(200).json()
         } catch(e: any) {
             if (e instanceof MissingData) { 
                 return res.status(404).json(
@@ -130,6 +141,11 @@ export default class UsersCrud implements IRegistrableEndpoint {
                 this.errorsFactory.getInternalServerError({detail: e.message})
                 )
         }
+    }
+
+    private getJWT(userEmail: string): string {
+        const user = {email: userEmail}
+        return jwt.sign(user, this.settings.get('accessTokenSecret'))
     }
 
     private async validateRequest(inputDto: any): Promise<any> {

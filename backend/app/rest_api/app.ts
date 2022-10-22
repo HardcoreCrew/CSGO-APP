@@ -32,7 +32,7 @@ export default function createApp() {
 
     const app = express()
     app.use(express.json())
-    app.use(cors())
+    app.use(cors({ credentials: true }))
     app.use(expressUnitOfWork(container.resolve('ISequelize'), container.resolve(SequelizeStorage)))
 
     const router = express.Router()
