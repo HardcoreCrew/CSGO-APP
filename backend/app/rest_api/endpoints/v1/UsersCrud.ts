@@ -2,6 +2,7 @@ import { injectable, inject } from "tsyringe"
 import { 
     doc,
     BASE_URL,
+    LOGIN_USER_URL,
  } from './UsersCrudDoc'
  import { 
     Request, 
@@ -10,16 +11,21 @@ import {
 } from 'express'
 import { 
     AddUserInputDto, 
-    GetAllUsersInputDto, 
+    GetAllUsersInputDto,
+    VerifyUserPasswordInputDto, 
 } from '../../../users_management/dtos'
 import {
     plainToInstance,
     instanceToPlain, 
 } from 'class-transformer'
 import { validateOrReject } from 'class-validator'
-import { IAddUser } from '../../../users_management/use_cases'
+import { 
+    IAddUser,
+    IVerifyUserPassword,
+} from '../../../users_management/use_cases'
 import IRegistrableEndpoint from "../IRegistrableEndpoint"
 import { 
+    MissingData,
     ObjectAlreadyExists,
 } from "../../../domain/errors"
 import { 
@@ -35,6 +41,7 @@ import {
 export default class UsersCrud implements IRegistrableEndpoint {
     constructor(
         @inject("IAddUser") private addUserUC: IAddUser,
+        @inject("IVerifyUserPassword") private verifyUserPasswordUC: IVerifyUserPassword,
         @inject("IGetAllUsersQuery") private getAllUsersQuery: IGetAllUsersQuery,
         @inject("IProblemDetailsFactory") private errorsFactory: IProblemDetailsFactory,
       ) {}
@@ -46,6 +53,7 @@ export default class UsersCrud implements IRegistrableEndpoint {
     public registerMethods(router: Router): void {
         router.get(BASE_URL, (req, res) => this.getAllUsers(req, res))
         router.post(BASE_URL, (req, res) => this.addUser(req, res))
+        router.post(LOGIN_USER_URL, (req, res) => this.loginUser(req, res))
     }
 
     public async getAllUsers(req: Request, res: Response) {
@@ -94,6 +102,28 @@ export default class UsersCrud implements IRegistrableEndpoint {
             if (e instanceof ObjectAlreadyExists) { 
                 return res.status(400).json(
                     this.errorsFactory.getCustomError({title: e.message})
+                )
+              }
+            return res.status(500).json(
+                this.errorsFactory.getInternalServerError({detail: e.message})
+                )
+        }
+    }
+
+    public async loginUser(req: Request, res: Response) {
+        const inputDto = plainToInstance(VerifyUserPasswordInputDto, req.body)
+        const errorObject = await this.validateRequest(inputDto)
+        if (Object.keys(errorObject).length) {
+            return res.status(400).json(this.errorsFactory.getValidationError(errorObject))
+        }
+        
+        try {
+            const outputDto = await this.verifyUserPasswordUC.execute(inputDto)
+            return res.status(200).json(instanceToPlain(outputDto))
+        } catch(e: any) {
+            if (e instanceof MissingData) { 
+                return res.status(404).json(
+                    this.errorsFactory.getNotFoundError({email: e.message})
                 )
               }
             return res.status(500).json(

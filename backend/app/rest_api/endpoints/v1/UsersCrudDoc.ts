@@ -7,6 +7,7 @@ import v1Url from './v1_base_url'
 
 
 const BASE_URL = `${v1Url}/users`
+const LOGIN_USER_URL = `${BASE_URL}/login`
 
 const getOutputProps = {
     id: {
@@ -109,6 +110,45 @@ const postOutputContent = {
     }
 }
 
+const loginUserInputContent = {
+    "application/json": {
+        schema: {
+            type: "object",
+            properties: {
+                email: {
+                    type: "string",
+                    required: true,
+                },
+                password: {
+                    type: "string",
+                    required: true,
+                },
+            }
+        }
+    }
+}
+
+const loginUserNotFoundContent = {
+    "application/json": {
+        schema: {
+            type: "object",
+            properties: {
+                title: {
+                    type: "string",
+                },
+                email: {
+                    type: "string",
+                },
+            }
+        }
+    }
+}
+
+const loginUserBadRequestContent: any = cloneDeep(loginUserNotFoundContent)
+loginUserBadRequestContent['application/json'].schema.properties.password = {
+    type: "string",
+}
+
 const doc = {
     [BASE_URL]: {
         get: {
@@ -154,10 +194,35 @@ const doc = {
                 },
             }
         },
+    },
+    [LOGIN_USER_URL]: {
+        post: {
+            tags: ["Users"],
+            description: "Login user",
+            operationId: "loginUser",
+            requestBody: {content: loginUserInputContent},
+            responses: {
+                200: {
+                    description: "User logged in",
+                },
+                400: {
+                    description: "Bad request",
+                    content: loginUserBadRequestContent,
+                },
+                401: {
+                    description: "User unauthorized",
+                },
+                404: {
+                    description: "User not found",
+                    content: loginUserNotFoundContent,
+                },
+            }
+        },
     }
 }
 
 export {
     doc,
     BASE_URL,
+    LOGIN_USER_URL,
 }
