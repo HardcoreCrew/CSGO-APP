@@ -128,7 +128,7 @@ const loginUserInputContent = {
     }
 }
 
-const loginUserNotFoundContent = {
+const loginUserBadRequestContent = {
     "application/json": {
         schema: {
             type: "object",
@@ -139,14 +139,12 @@ const loginUserNotFoundContent = {
                 email: {
                     type: "string",
                 },
+                password: {
+                    type: "string",
+                },
             }
         }
     }
-}
-
-const loginUserBadRequestContent: any = cloneDeep(loginUserNotFoundContent)
-loginUserBadRequestContent['application/json'].schema.properties.password = {
-    type: "string",
 }
 
 const doc = {
@@ -204,6 +202,14 @@ const doc = {
             responses: {
                 200: {
                     description: "User logged in",
+                    headers: {
+                        "Set-Cookie": {
+                            schema: {
+                                type: "string",
+                            },
+                            description: "Cookie with authorization token",
+                        }
+                    }
                 },
                 400: {
                     description: "Bad request",
@@ -211,10 +217,6 @@ const doc = {
                 },
                 401: {
                     description: "User unauthorized",
-                },
-                404: {
-                    description: "User not found",
-                    content: loginUserNotFoundContent,
                 },
             }
         },

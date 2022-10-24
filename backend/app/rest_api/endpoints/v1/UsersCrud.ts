@@ -129,13 +129,12 @@ export default class UsersCrud implements IRegistrableEndpoint {
                 httpOnly: true,
                 secure: this.settings.get('envName') === 'PROD',
                 sameSite: 'strict',
+                maxAge: parseInt(this.settings.get('accessTokenTimeout'))
               })
               .status(200).json()
         } catch(e: any) {
             if (e instanceof MissingData) { 
-                return res.status(404).json(
-                    this.errorsFactory.getNotFoundError({email: e.message})
-                )
+                return res.status(401).json()
               }
             return res.status(500).json(
                 this.errorsFactory.getInternalServerError({detail: e.message})
@@ -145,7 +144,13 @@ export default class UsersCrud implements IRegistrableEndpoint {
 
     private getJWT(userEmail: string): string {
         const user = {email: userEmail}
-        return jwt.sign(user, this.settings.get('accessTokenSecret'))
+        return jwt.sign(
+            user, 
+            this.settings.get('accessTokenSecret'),
+            {
+                expiresIn: this.settings.get('accessTokenTimeout')
+            },
+        )
     }
 
     private async validateRequest(inputDto: any): Promise<any> {
