@@ -71,6 +71,7 @@ const expressUnitOfWork = (sequelize: Sequelize, storage: SequelizeStorage) =>
 
         res.on('finish', async () => {
             if (req.method === 'GET') return
+            if (req.url.includes('users/login')) return
             try {
                 if (res.statusCode < 400) {
                     storage.transaction.commit()
