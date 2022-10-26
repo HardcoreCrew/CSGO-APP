@@ -4,6 +4,7 @@ import {
     doc,
     BASE_URL,
     LOGIN_USER_URL,
+    LOGOUT_USER_URL,
  } from './UsersCrudDoc'
  import { 
     NextFunction,
@@ -64,6 +65,7 @@ export default class UsersCrud implements IRegistrableEndpoint {
         router.get(BASE_URL, authenticateToken(this.tokenSecret), (req, res) => this.getAllUsers(req, res))
         router.post(BASE_URL, authenticateToken(this.tokenSecret), (req, res) => this.addUser(req, res))
         router.post(LOGIN_USER_URL, (req, res) => this.loginUser(req, res))
+        router.post(LOGOUT_USER_URL, authenticateToken(this.tokenSecret), (req, res) => this.logoutUser(req, res))
     }
 
     public async getAllUsers(req: Request, res: Response) {
@@ -147,6 +149,10 @@ export default class UsersCrud implements IRegistrableEndpoint {
                 this.errorsFactory.getInternalServerError({detail: e.message})
                 )
         }
+    }
+
+    public logoutUser(req: Request, res: Response) {
+        return res.clearCookie('Access-Token').status(200).json()
     }
 
     private getJWT(userEmail: string): string {
