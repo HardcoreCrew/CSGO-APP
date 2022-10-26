@@ -9,6 +9,7 @@ import v1Url from './v1_base_url'
 
 const BASE_URL = `${v1Url}/users`
 const LOGIN_USER_URL = `${BASE_URL}/login`
+const LOGOUT_USER_URL = `${BASE_URL}/logout`
 
 const getOutputProps = {
     id: {
@@ -223,11 +224,25 @@ const doc = {
                 },
             }
         },
-    }
+    },
+    [LOGOUT_USER_URL]: {
+        post: {
+            tags: ["Users"],
+            description: "Logout user",
+            operationId: "logoutUser",
+            responses: {
+                200: {
+                    description: "User logged out",
+                },
+                ...AccessForbiddenResponse,
+            },
+        },
+    },
 }
 
 export {
     doc,
     BASE_URL,
     LOGIN_USER_URL,
+    LOGOUT_USER_URL,
 }
