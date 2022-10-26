@@ -6,6 +6,7 @@ import {
     LOGIN_USER_URL,
  } from './UsersCrudDoc'
  import { 
+    NextFunction,
     Request, 
     Response, 
     Router,
@@ -41,21 +42,27 @@ import { ISettings } from "../../../settings"
 
 @injectable()
 export default class UsersCrud implements IRegistrableEndpoint {
+    private tokenSecret: string
+    private tokenTimeout: string
+
     constructor(
         @inject("ISettings") private settings: ISettings,
         @inject("IAddUser") private addUserUC: IAddUser,
         @inject("IVerifyUserPassword") private verifyUserPasswordUC: IVerifyUserPassword,
         @inject("IGetAllUsersQuery") private getAllUsersQuery: IGetAllUsersQuery,
         @inject("IProblemDetailsFactory") private errorsFactory: IProblemDetailsFactory,
-      ) {}
+      ) {
+        this.tokenSecret = settings.get('accessTokenSecret')
+        this.tokenTimeout = settings.get('accessTokenTimeout')
+      }
 
     get doc(): any {
         return doc
     }
 
     public registerMethods(router: Router): void {
-        router.get(BASE_URL, (req, res) => this.getAllUsers(req, res))
-        router.post(BASE_URL, (req, res) => this.addUser(req, res))
+        router.get(BASE_URL, authenticateToken(this.tokenSecret), (req, res) => this.getAllUsers(req, res))
+        router.post(BASE_URL, authenticateToken(this.tokenSecret), (req, res) => this.addUser(req, res))
         router.post(LOGIN_USER_URL, (req, res) => this.loginUser(req, res))
     }
 
@@ -129,7 +136,7 @@ export default class UsersCrud implements IRegistrableEndpoint {
                 httpOnly: true,
                 secure: this.settings.get('envName') === 'PROD',
                 sameSite: 'strict',
-                maxAge: parseInt(this.settings.get('accessTokenTimeout'))
+                maxAge: parseInt(this.tokenTimeout)
               })
               .status(200).json()
         } catch(e: any) {
@@ -146,9 +153,9 @@ export default class UsersCrud implements IRegistrableEndpoint {
         const user = {email: userEmail}
         return jwt.sign(
             user, 
-            this.settings.get('accessTokenSecret'),
+            this.tokenSecret,
             {
-                expiresIn: this.settings.get('accessTokenTimeout')
+                expiresIn: this.tokenTimeout
             },
         )
     }
@@ -173,3 +180,18 @@ export default class UsersCrud implements IRegistrableEndpoint {
         return {}
     }
 }
+
+
+const authenticateToken = (tokenSecret: string) => 
+    (req: Request, res: Response, next: NextFunction) => {
+        const cookie: string | undefined = req.headers.cookie
+        if (!cookie) {
+            return res.status(403).json()
+          }
+        try {
+            jwt.verify(cookie.slice(13), tokenSecret)
+            next()
+        } catch {
+            return res.status(403).json()
+        }
+    }

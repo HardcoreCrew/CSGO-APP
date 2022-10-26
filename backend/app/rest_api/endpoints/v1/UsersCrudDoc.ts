@@ -2,6 +2,7 @@ import { cloneDeep } from 'lodash'
 import { 
     baseGetAllResourcesBadRequest,
     PagingParameters, 
+    AccessForbiddenResponse,
 } from '../shared_swagger_docs'
 import v1Url from './v1_base_url'
 
@@ -174,6 +175,7 @@ const doc = {
                     content: getOutputContent,
                 },
                 ...getAllResourcesBadRequest,
+                ...AccessForbiddenResponse,
             }
         },
         post: {
@@ -190,6 +192,7 @@ const doc = {
                     description: "Bad request",
                     content: postBadRequestContent,
                 },
+                ...AccessForbiddenResponse,
             }
         },
     },
